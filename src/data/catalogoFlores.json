@@ -1,0 +1,122 @@
+[
+  {
+    "id": "1",
+    "texto": "Es una flor silvestre nativa de Chile. Simboliza la identidad natural local y la resiliencia (ya que crece en terrenos secos y florece cada primavera).",
+    "image": "/img/Azulillo.jpg",
+    "price": "$6.000"
+  },
+  {
+    "id": "2",
+    "texto": "Simboliza la pureza, elegancia, inocencia y la vida eterna.",
+    "image": "/img/Cala.jpg",
+    "price": "$6.000"
+  },
+  {
+    "id": "3",
+    "texto": "Es la flor nacional de Chile. Simboliza la felicidad, la amistad, la gratitud y la valentía.",
+    "image": "/img/Copihues.jpg",
+    "price": "$10.000"
+  },
+  {
+    "id": "4",
+    "texto": "Simboliza principalmente la elegancia, la fuerza interior, el compromiso y la resiliencia.Sin embargo, su significado varía profundamente según su color.",
+    "image": "/img/Dalia.jpg",
+    "price": "$8.000"
+  },
+  {
+    "id": "5",
+    "texto": "Es una flor nativa de Suiza.Simboliza pureza, valentía y amor eterno.",
+    "image": "/img/Edelweiss.jpg",
+    "price": "$7.000"
+  },
+  {
+    "id": "6",
+    "texto": "Simboliza principalmente la alegría, la pureza, la inocencia y la energía positiva. Sin embargo, su significado varía profundamente según su color.",
+    "image": "/img/Gerbera.jpg",
+    "price": "$8.000"
+  },
+  {
+    "id": "7",
+    "texto": "Simboliza la energía, el sol, la alegría y el amor profundo.",
+    "image": "/img/Girasol_XL.jpg",
+    "price": "$10.000"
+  },
+  {
+    "id": "8",
+    "texto": "Simboliza la belleza delicada, la feminidad, el amor intenso y el disfrutar del momento presente..",
+    "image": "/img/Hibisco.jpg",
+    "price": "$7.000"
+  },
+  {
+    "id": "9",
+    "texto": "Simboliza el amor eterno, la fidelidad y la alegría..",
+    "image": "/img/Jacinto.jpg",
+    "price": "$7.000"
+  },
+  {
+    "id": "10",
+    "texto": "Destaca como un poderoso amuleto protector, actúa como escudo contra la negatividad y atracción de abundancia..",
+    "image": "/img/Lengua_de_suegra.jpg",
+    "price": "$10.000"
+  },
+  {
+    "id": "11",
+    "texto": "Simboliza la despedida, el renacimiento y el paso hacia el más allá..",
+    "image": "/img/Lirio_araña.jpg",
+    "price": "$9.000"
+  },
+  {
+    "id": "12",
+    "texto": "Simboliza la esperanza, la renovación y los nuevos comienzos..",
+    "image": "/img/Lirio_de_lluvia.jpg",
+    "price": "$8.000"
+  },
+  {
+    "id": "13",
+    "texto": "Simboliza principalmente la pureza, la inocencia, el renacimiento y la feminidad.Sin embargo, su significado varía profundamente según su color.",
+    "image": "/img/Lirio.jpg",
+    "price": "$6.000"
+  },
+  {
+    "id": "14",
+    "texto": "Simboliza la buena fortuna, la felicidad y la longevidad..",
+    "image": "/img/Mano_de_buda.jpg",
+    "price": "$8.000"
+  },
+  {
+    "id": "15",
+    "texto": "Simboliza la inocencia, la pureza, la alegría y los nuevos comienzos..",
+    "image": "/img/Margarita_XL.jpg",
+    "price": "$8.000"
+  },
+  {
+    "id": "16",
+    "texto": "Simboliza principalmente la belleza, el amor, la feminidad y la elegancia. Sin embargo, su significado varía profundamente según su color.",
+    "image": "/img/Orquídea_con_maceta.jpg",
+    "price": "$7.000"
+  },
+  {
+    "id": "17",
+    "texto": "Simboliza la prosperidad, el amor, la buena fortuna y el honor.",
+    "image": "/img/Peonía.jpg",
+    "price": "$9.000"
+  },
+  {
+    "id": "18",
+    "texto": "Es el símbolo universal del amor, la pasión y la belleza. Sin embargo, su significado varía profundamente según su color.",
+    "image": "/img/Rosa.jpg",
+    "price": "$8.000"
+  },
+  {
+    "id": "19",
+    "texto": "Es el símbolo universal del amor, la pasión y la belleza. Sin embargo, su significado varía profundamente según su color..",
+    "image": "/img/Rosa_XL.jpg",
+    "price": "$10.000"
+  },
+  {
+    "id": "20",
+    "texto": "Simboliza principalmente el amor perfecto, profundo y sincero. Sin embargo, su significado varía profundamente según su color.",
+    "image": "/img/Tulipán.jpg",
+    "price": "$6.000"
+  }
+]

@@ -1,0 +1,4 @@
+# No redirigir assets estáticos al SPA
+/img/* /img/:splat 200
+/share/* /share/:splat 200
+/* /index.html 200

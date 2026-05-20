@@ -1,0 +1,30 @@
+[
+  {
+    "id": "1",
+    "nombre": "Adornos",
+    "texto": "Detalles decorativos para complementar tus arreglos florales. Variedad de estilos y colores según disponibilidad.",
+    "image": "/img/Adornos.jpg",
+    "price": "$8.000"
+  },
+  {
+    "id": "2",
+    "nombre": "Cintillos",
+    "texto": "Cintillos para amarrar y dar el toque final a ramos y bouquets. Consulta colores y anchos disponibles.",
+    "image": "/img/Cintillos.jpg",
+    "price": "$5.000"
+  },
+  {
+    "id": "3",
+    "nombre": "Fundas de cargador",
+    "texto": "Fundas decorativas para cargador, ideales como regalo complementario o detalle personalizado.",
+    "image": "/img/Fundas_de_cargador.jpg",
+    "price": "$12.000"
+  },
+  {
+    "id": "4",
+    "nombre": "Pinches",
+    "texto": "Pinches florales para fijar flores y follaje en arreglos. Prácticos y discretos para un acabado profesional.",
+    "image": "/img/Pinches.jpg",
+    "price": "$6.000"
+  }
+]

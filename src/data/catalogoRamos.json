@@ -1,0 +1,37 @@
+[
+  {
+    "id": "1",
+    "nombre": "Ramo de 6 Tulipanes",
+    "texto": "Ramo elegante con seis tulipanes frescos. Ideal para regalar alegría y renovación en cualquier ocasión especial.",
+    "image": "/img/Ramo_de_6_tulipanes.jpg",
+    "price": "$30.000"
+  },
+  {
+    "id": "2",
+    "nombre": "Ramo de 8 Lirios",
+    "texto": "Ocho lirios que transmiten pureza, nobleza y admiración. Perfecto para expresar sentimientos profundos con presencia y delicadeza.",
+    "image": "/img/Ramo_de_8_lirios.jpg",
+    "price": "$40.000"
+  },
+  {
+    "id": "3",
+    "nombre": "Ramo de 10 Margaritas",
+    "texto": "Ramo fresco y luminoso de margaritas. Simboliza inocencia, alegría sencilla y cariño sincero.",
+    "image": "/img/Ramo_de_margaritas.jpg",
+    "price": "$20.000"
+  },
+  {
+    "id": "4",
+    "nombre": "Ramo Lirios, Tulipanes y Dalia",
+    "texto": "Combinación armónica de lirios, tulipanes y dalia. Un arreglo versátil que mezcla elegancia, color y calidez.",
+    "image": "/img/Ramo_lirios_tulipanes_dalia.jpg",
+    "price": "$45.000"
+  },
+  {
+    "id": "5",
+    "nombre": "Ramo Bon o Bon",
+    "texto": "Ramo dulce y original con flores y detalle tipo bonobón. Pensado para sorprender con un regalo tierno y memorable.",
+    "image": "/img/Ramo_bonobón.jpg",
+    "price": "$25.000"
+  }
+]

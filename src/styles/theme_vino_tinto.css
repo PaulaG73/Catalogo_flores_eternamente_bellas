@@ -1,0 +1,297 @@
+/*Paleta vino: fondos muy pálidos + acento legible (sustituye el rol del verde #198754) */
+:root,
+[data-bs-theme="light"] {
+  --vin-palido: #f0e4e7;
+  --vin-fondo-seccion: #f6f0f2;
+  --vin-acento: #6d2c35;
+  --vin-acento-rgb: 109, 44, 53;
+  --vin-acento-hover: #54252b;
+  --vin-acento-active: #451e22;
+
+  --vin-profundo: #3a0f18;
+  --vin-profundo-rgb: 58, 15, 24;
+
+  /* Fondo navbar (= base oscura marca) */
+  --vin-navbar-fondo: var(--vin-negro-marca);
+  --vin-navbar-fondo-rgb: 47, 40, 45;
+
+  /* Degradados del fondo del Logo.JPG (crema → melocotón → rosa → lavanda) */
+  --vin-logo-texto-gradient: linear-gradient(
+    92deg,
+    #faf6e8 0%,
+    #f7ebe2 38%,
+    #efd9e8 72%,
+    #e8daf0 100%
+  );
+  --vin-logo-texto-gradient-hover: linear-gradient(
+    92deg,
+    #fffdf4 0%,
+    #fdf0e8 38%,
+    #f5e4ef 72%,
+    #efe6f8 100%
+  );
+  --vin-logo-fondo-color: #f7ebe2;
+  /* Fondo dominante de Avatar.jpg (rosa pastel cálido) */
+  --vin-avatar-fondo: #f5d0da;
+  --vin-avatar-fondo-rgb: 245, 208, 218;
+  --vin-avatar-fondo-hover: #fce6ed;
+  --vin-logo-fondo-gradient: linear-gradient(
+    92deg,
+    #faf6e8 0%,
+    #f7ebe2 22%,
+    #fce8d4 46%,
+    #f5d4e8 70%,
+    #efd9e8 86%,
+    #e8daf0 100%
+  );
+
+  /* Lavanda / violeta del degradado del Logo.JPG (extremo del arco, ≈ #e8daf0) */
+  --vin-violeta-logo: #e8daf0;
+  --vin-violeta-logo-rgb: 232, 218, 240;
+  /* Alias por compatibilidad */
+  --vin-rosa-logo: var(--vin-violeta-logo);
+  --vin-rosa-logo-rgb: var(--vin-violeta-logo-rgb);
+  --vin-rosa-halo: #eec2cb;
+  --vin-rosa-halo-rgb: 238, 194, 203;
+  --vin-leche-rgb: 255, 237, 242;
+  --vin-pastel-nube-rgb: 249, 226, 234;
+  --vin-pastel-polvo-rgb: 236, 212, 220;
+  /* Capas extra para “jugar” con rosas (lavanda‑rosa, melocotón, ballet, sorbete) */
+  --vin-rosa-cuarzo-rgb: 244, 228, 236;
+  --vin-rosa-melocoton-rgb: 255, 228, 232;
+  --vin-rosa-ballet-rgb: 242, 212, 222;
+  --vin-rosa-sorbete-rgb: 252, 198, 216;
+
+  /* Base oscura con matiz malva‑rosa */
+  --vin-negro-marca: #2f282d;
+  --vin-superficie-oscura: #363032;
+  --vin-superficie-alterna: #3c353b;
+  --vin-fondo-packs: #423940;
+
+  /* Brumas superpuestas: varios rosas en distintos focos */
+  --vin-bg-atmosfera: radial-gradient(
+      ellipse 118% 84% at 50% -14%,
+      rgba(var(--vin-leche-rgb), 0.58),
+      transparent 58%
+    ),
+    radial-gradient(
+      ellipse 90% 74% at -12% 90%,
+      rgba(var(--vin-pastel-nube-rgb), 0.44),
+      transparent 56%
+    ),
+    radial-gradient(
+      ellipse 76% 58% at 108% 50%,
+      rgba(var(--vin-pastel-polvo-rgb), 0.34),
+      transparent 54%
+    ),
+    radial-gradient(
+      ellipse 58% 46% at 78% -8%,
+      rgba(var(--vin-rosa-sorbete-rgb), 0.26),
+      transparent 56%
+    ),
+    radial-gradient(
+      ellipse 62% 52% at 14% 104%,
+      rgba(var(--vin-rosa-melocoton-rgb), 0.3),
+      transparent 54%
+    ),
+    radial-gradient(
+      ellipse 48% 40% at 50% 72%,
+      rgba(var(--vin-rosa-cuarzo-rgb), 0.14),
+      transparent 58%
+    );
+
+  /* Decoración bajo títulos de sección (paleta logo) */
+  --vin-titulo-subrayado: linear-gradient(
+    92deg,
+    #efd9e8 0%,
+    #e8daf0 50%,
+    #f5d4e8 100%
+  );
+  --vin-titulo-tallo: rgba(var(--vin-acento-rgb), 0.52);
+  --vin-titulo-seccion-color: var(--vin-navbar-fondo);
+  --vin-texto-claro: rgba(255, 255, 255, 0.96);
+  --vin-texto-muted: rgba(255, 255, 255, 0.8);
+  /* Acento aclarado para texto sobre fondo (p. ej. “Sobre mí”) */
+  --vin-acento-sobre-negro: #e9c2cf;
+  --vin-rosa-texto-brillo: rgba(255, 236, 244, 0.95);
+  --vin-borde-sutil: rgba(255, 255, 255, 0.14);
+
+  /* Botones de scroll (flechas carrusel, volver arriba, footer) — fondo Avatar.jpg */
+  --vin-btn-scroll-bg: var(--vin-avatar-fondo);
+  --vin-btn-scroll-bg-hover: var(--vin-avatar-fondo-hover);
+  --vin-btn-scroll-color: var(--vin-profundo);
+  --vin-btn-scroll-shadow:
+    0 2px 10px rgba(42, 32, 38, 0.22),
+    0 0 0 1px rgba(var(--vin-avatar-fondo-rgb), 0.45);
+  --vin-btn-scroll-shadow-hover:
+    0 4px 14px rgba(42, 32, 38, 0.26),
+    0 0 0 1px rgba(var(--vin-avatar-fondo-rgb), 0.65);
+
+  /* Chips / acentos en tarjetas (degradado burdeos) */
+  --vin-btn-carousel-fill: linear-gradient(
+    155deg,
+    rgba(var(--vin-acento-rgb), 0.96) 0%,
+    rgba(126, 52, 68, 0.94) 42%,
+    rgba(168, 82, 104, 0.92) 100%
+  );
+  --vin-btn-carousel-shadow: 0 2px 10px rgba(var(--vin-acento-rgb), 0.38),
+    0 0 22px rgba(var(--vin-rosa-sorbete-rgb), 0.28);
+  --vin-btn-carousel-shadow-hover: 0 4px 14px rgba(var(--vin-acento-rgb), 0.42),
+    0 0 28px rgba(var(--vin-rosa-ballet-rgb), 0.38);
+
+  /* Barra tipo prefooter acento rosa (coherente con halo anterior) */
+  --vin-prefooter-brillo: radial-gradient(
+      ellipse 130% 90% at 12% 45%,
+      rgba(var(--vin-rosa-sorbete-rgb), 0.26),
+      transparent 58%
+    ),
+    radial-gradient(
+      ellipse 115% 85% at 88% 38%,
+      rgba(var(--vin-rosa-ballet-rgb), 0.22),
+      transparent 56%
+    ),
+    radial-gradient(
+      ellipse 95% 130% at 50% 55%,
+      rgba(var(--vin-pastel-polvo-rgb), 0.12),
+      transparent 68%
+    );
+
+  /* Texto cuerpo sobre fondos claros tipo logo */
+  --vin-texto-sobre-logo: var(--vin-profundo);
+  --vin-texto-sobre-logo-muted: rgba(var(--vin-profundo-rgb), 0.78);
+
+  /* Verde marca WhatsApp (solo botón WA) */
+  --wa-green: #25d366;
+  --wa-green-hover: #20bd5a;
+  --wa-green-active: #1da851;
+  --wa-green-rgb: 37, 211, 102;
+
+  --bs-success: var(--vin-acento);
+  --bs-success-rgb: var(--vin-acento-rgb);
+  --bs-success-text-emphasis: #3d1a1f;
+  --bs-success-bg-subtle: var(--vin-palido);
+  --bs-success-border-subtle: #d4bfc4;
+}
+
+.bg-vino-palido {
+  background-color: var(--vin-palido) !important;
+}
+
+.bg-vino-profundo {
+  background-color: var(--vin-profundo) !important;
+}
+
+.bg-vin-negro {
+  background-color: var(--vin-negro-marca) !important;
+}
+
+/* Tooltip junto al botón WhatsApp (footer y tarjetas): un solo estilo */
+.footer-wa-tooltip,
+.card-wa-tooltip {
+  position: absolute;
+  left: calc(100% + 10px);
+  top: 50%;
+  translate: -6px -50%;
+  padding: 0.4rem 0.75rem;
+  background: #fff;
+  color: var(--vin-profundo, #3a0f18);
+  font-family: var(--vin-font-marca);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+  white-space: nowrap;
+  border-radius: 0.4rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 20;
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease,
+    translate 0.2s ease;
+}
+
+.footer-wa-tooltip::after,
+.card-wa-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  translate: 2px -50%;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 7px 8px 7px 0;
+  border-color: transparent #fff transparent transparent;
+  filter: drop-shadow(-2px 0 3px rgba(0, 0, 0, 0.12));
+}
+
+.footer-wa-wrap:hover .footer-wa-tooltip,
+.footer-wa-wrap:focus-within .footer-wa-tooltip,
+.card-wa-wrap:hover .card-wa-tooltip,
+.card-wa-wrap:focus-within .card-wa-tooltip {
+  opacity: 1;
+  visibility: visible;
+  translate: 0 -50%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-wa-tooltip,
+  .card-wa-tooltip {
+    transition: none;
+    translate: 0 -50%;
+  }
+}
+
+.btn-whatsapp {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--wa-green);
+  --bs-btn-border-color: var(--wa-green);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--wa-green-hover);
+  --bs-btn-hover-border-color: var(--wa-green-hover);
+  --bs-btn-focus-shadow-rgb: var(--wa-green-rgb);
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--wa-green-active);
+  --bs-btn-active-border-color: var(--wa-green-active);
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: var(--wa-green);
+  --bs-btn-disabled-border-color: var(--wa-green);
+}
+
+.btn-success {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--vin-acento);
+  --bs-btn-border-color: var(--vin-acento);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--vin-acento-hover);
+  --bs-btn-hover-border-color: #4a2229;
+  --bs-btn-focus-shadow-rgb: var(--vin-acento-rgb);
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--vin-acento-active);
+  --bs-btn-active-border-color: #3d1c22;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: var(--vin-acento);
+  --bs-btn-disabled-border-color: var(--vin-acento);
+}
+
+.btn-outline-success {
+  --bs-btn-color: var(--vin-acento);
+  --bs-btn-border-color: var(--vin-acento);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--vin-acento);
+  --bs-btn-hover-border-color: var(--vin-acento);
+  --bs-btn-focus-shadow-rgb: var(--vin-acento-rgb);
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--vin-acento-hover);
+  --bs-btn-active-border-color: #4a2229;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: var(--vin-acento);
+  --bs-btn-disabled-bg: transparent;
+  --bs-btn-disabled-border-color: var(--vin-acento);
+  --bs-gradient: none;
+}
