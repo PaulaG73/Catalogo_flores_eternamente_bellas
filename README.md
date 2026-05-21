@@ -1,6 +1,6 @@
 # Flores Eternamente Bellas
 
-Catálogo web responsive para **flores de goma eva**, **ramos** y **accesorios**, con pedidos y consultas por **WhatsApp**. Pensado para compartir un enlace único con clientes y mostrar productos con precios en pesos chilenos (CLP).
+Catálogo web responsive para **flores**, **ramos** y **accesorios**, hechos con limpiapipas, con pedidos y consultas por **WhatsApp**. Pensado para compartir un enlace único con clientes y mostrar productos con precios en pesos chilenos (CLP).
 
 ---
 
@@ -56,15 +56,35 @@ Copia el ejemplo y configura la URL pública del sitio (necesaria para enlaces d
 
 ```bash
 cp .env.example .env.development
+cp .env.example .env.production
 ```
 
-En `.env.development` y `.env.production`:
+En ambos archivos (sin barra final al final de la URL):
 
 ```env
-VUE_APP_PUBLIC_SITE_URL=https://tu-dominio.ejemplo
+VUE_APP_PUBLIC_SITE_URL=https://catalogofloreseternamentebellas.netlify.app
 ```
 
-> Sin barra final. En local, usa la misma URL de staging/producción si quieres probar el botón WhatsApp de las tarjetas (WhatsApp no abre `localhost`).
+> Los archivos `.env.*` no se suben a Git (están en `.gitignore`). Tras cambiar `.env`, reinicia `npm run serve`.
+
+### Variables en Netlify (panel)
+
+Vue solo lee `VUE_APP_*` **al hacer el build**. En Netlify debes definir la variable **antes** de desplegar (o volver a desplegar después de añadirla).
+
+1. Entra a [app.netlify.com](https://app.netlify.com) y abre el sitio **catalogofloreseternamentebellas**.
+2. **Site configuration** → **Environment variables** (o **Build & deploy** → **Environment**).
+3. **Add a variable** / **Add environment variable**:
+   - **Key:** `VUE_APP_PUBLIC_SITE_URL`
+   - **Value:** `https://catalogofloreseternamentebellas.netlify.app` (tu URL pública, **sin** `/` al final)
+   - **Scopes:** marca **Production** (y **Deploy previews** si quieres previews con WhatsApp correcto).
+4. **Save**.
+5. **Deploys** → **Trigger deploy** → **Deploy site** (rebuild obligatorio: un deploy antiguo no incluye la variable).
+
+**Alternativa en el repo:** el archivo `netlify.toml` ya declara la misma variable para el build. Si haces push de ese archivo, Netlify la aplica sola; el panel sirve para cambiarla sin commitear o si prefieres configurar solo desde la web.
+
+| Key | Value (ejemplo) |
+|-----|-----------------|
+| `VUE_APP_PUBLIC_SITE_URL` | `https://catalogofloreseternamentebellas.netlify.app` |
 
 ### Número de WhatsApp
 
@@ -171,15 +191,14 @@ El orden en carrusel se calcula en `src/utils/catalogo.js` (por precio ascendent
 ## Despliegue
 
 ```bash
-# Definir URL pública antes del build
-# .env.production → VUE_APP_PUBLIC_SITE_URL=https://...
-
 npm run build
 ```
 
+En **Netlify**, no hace falta subir `.env.production`: usa la variable del panel o `netlify.toml` (ver sección anterior).
+
 La carpeta `dist/` es estática. El archivo `public/_redirects` redirige rutas al `index.html` (SPA) y preserva `/img/*`.
 
-Plataformas habituales: **Netlify**, **Vercel**, **GitHub Pages** (con `publicPath` acorde), o cualquier hosting de archivos estáticos con HTTPS.
+**Build en Netlify (resumen):** comando `npm run build`, carpeta publicada `dist/` (ya en `netlify.toml`).
 
 ---
 
