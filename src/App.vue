@@ -11,12 +11,12 @@
 
     body {
       margin: 0;
-      background-color: var(--vin-negro-marca);
-      background-image: var(--vin-bg-atmosfera);
+      background-color: var(--feb-negro-marca);
+      background-image: var(--feb-bg-atmosfera);
       background-attachment: fixed;
       background-repeat: no-repeat;
       background-size: cover;
-      color: var(--vin-texto-claro);
+      color: var(--feb-texto-claro);
     }
 
     #app {
@@ -24,8 +24,16 @@
       -moz-osx-font-smoothing: grayscale;
       text-align: center;
       min-height: 100vh;
-      color: var(--vin-texto-claro);
+      min-height: 100dvh;
+      color: var(--feb-texto-claro);
       background-color: transparent;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #app > * {
+      min-width: 0;
+      max-width: 100%;
     }
     </style>
     

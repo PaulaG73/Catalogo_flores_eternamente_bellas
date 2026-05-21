@@ -1,0 +1,281 @@
+/* Paleta Flores Eternamente Bellas */
+:root,
+[data-bs-theme="light"] {
+  --feb-palido: #f0e4e7;
+  --feb-fondo-seccion: #f6f0f2;
+  --feb-acento: #6d2c35;
+  --feb-acento-rgb: 109, 44, 53;
+  --feb-acento-hover: #54252b;
+  --feb-acento-active: #451e22;
+
+  --feb-profundo: #3a0f18;
+  --feb-profundo-rgb: 58, 15, 24;
+
+  --feb-navbar-fondo: var(--feb-negro-marca);
+  --feb-navbar-fondo-rgb: 47, 40, 45;
+
+  --feb-logo-texto-gradient: linear-gradient(
+    92deg,
+    #faf6e8 0%,
+    #f7ebe2 38%,
+    #efd9e8 72%,
+    #e8daf0 100%
+  );
+  --feb-logo-texto-gradient-hover: linear-gradient(
+    92deg,
+    #fffdf4 0%,
+    #fdf0e8 38%,
+    #f5e4ef 72%,
+    #efe6f8 100%
+  );
+  --feb-logo-fondo-color: #f7ebe2;
+  --feb-avatar-fondo: #f5d0da;
+  --feb-avatar-fondo-rgb: 245, 208, 218;
+  --feb-avatar-fondo-hover: #fce6ed;
+  --feb-logo-fondo-gradient: linear-gradient(
+    92deg,
+    #faf6e8 0%,
+    #f7ebe2 22%,
+    #fce8d4 46%,
+    #f5d4e8 70%,
+    #efd9e8 86%,
+    #e8daf0 100%
+  );
+
+  --feb-violeta-logo: #e8daf0;
+  --feb-violeta-logo-rgb: 232, 218, 240;
+  --feb-rosa-logo: var(--feb-violeta-logo);
+  --feb-rosa-logo-rgb: var(--feb-violeta-logo-rgb);
+  --feb-rosa-halo: #eec2cb;
+  --feb-rosa-halo-rgb: 238, 194, 203;
+  --feb-leche-rgb: 255, 237, 242;
+  --feb-pastel-nube-rgb: 249, 226, 234;
+  --feb-pastel-polvo-rgb: 236, 212, 220;
+  --feb-rosa-cuarzo-rgb: 244, 228, 236;
+  --feb-rosa-melocoton-rgb: 255, 228, 232;
+  --feb-rosa-ballet-rgb: 242, 212, 222;
+  --feb-rosa-sorbete-rgb: 252, 198, 216;
+
+  --feb-negro-marca: #2f282d;
+  --feb-superficie-oscura: #363032;
+  --feb-superficie-alterna: #3c353b;
+  --feb-fondo-packs: #423940;
+
+  --feb-bg-atmosfera: radial-gradient(
+      ellipse 118% 84% at 50% -14%,
+      rgba(var(--feb-leche-rgb), 0.58),
+      transparent 58%
+    ),
+    radial-gradient(
+      ellipse 90% 74% at -12% 90%,
+      rgba(var(--feb-pastel-nube-rgb), 0.44),
+      transparent 56%
+    ),
+    radial-gradient(
+      ellipse 76% 58% at 108% 50%,
+      rgba(var(--feb-pastel-polvo-rgb), 0.34),
+      transparent 54%
+    ),
+    radial-gradient(
+      ellipse 58% 46% at 78% -8%,
+      rgba(var(--feb-rosa-sorbete-rgb), 0.26),
+      transparent 56%
+    ),
+    radial-gradient(
+      ellipse 62% 52% at 14% 104%,
+      rgba(var(--feb-rosa-melocoton-rgb), 0.3),
+      transparent 54%
+    ),
+    radial-gradient(
+      ellipse 48% 40% at 50% 72%,
+      rgba(var(--feb-rosa-cuarzo-rgb), 0.14),
+      transparent 58%
+    );
+
+  --feb-titulo-subrayado: linear-gradient(
+    92deg,
+    #efd9e8 0%,
+    #e8daf0 50%,
+    #f5d4e8 100%
+  );
+  --feb-titulo-tallo: rgba(var(--feb-acento-rgb), 0.52);
+  --feb-titulo-seccion-color: var(--feb-navbar-fondo);
+  --feb-texto-claro: rgba(255, 255, 255, 0.96);
+  --feb-texto-muted: rgba(255, 255, 255, 0.8);
+  --feb-acento-sobre-negro: #e9c2cf;
+  --feb-rosa-texto-brillo: rgba(255, 236, 244, 0.95);
+  --feb-borde-sutil: rgba(255, 255, 255, 0.14);
+
+  --feb-btn-scroll-bg: var(--feb-avatar-fondo);
+  --feb-btn-scroll-bg-hover: var(--feb-avatar-fondo-hover);
+  --feb-btn-scroll-color: var(--feb-profundo);
+  --feb-btn-scroll-shadow:
+    0 2px 10px rgba(42, 32, 38, 0.22),
+    0 0 0 1px rgba(var(--feb-avatar-fondo-rgb), 0.45);
+  --feb-btn-scroll-shadow-hover:
+    0 4px 14px rgba(42, 32, 38, 0.26),
+    0 0 0 1px rgba(var(--feb-avatar-fondo-rgb), 0.65);
+
+  --feb-btn-carousel-fill: linear-gradient(
+    155deg,
+    rgba(var(--feb-acento-rgb), 0.96) 0%,
+    rgba(126, 52, 68, 0.94) 42%,
+    rgba(168, 82, 104, 0.92) 100%
+  );
+  --feb-btn-carousel-shadow: 0 2px 10px rgba(var(--feb-acento-rgb), 0.38),
+    0 0 22px rgba(var(--feb-rosa-sorbete-rgb), 0.28);
+  --feb-btn-carousel-shadow-hover: 0 4px 14px rgba(var(--feb-acento-rgb), 0.42),
+    0 0 28px rgba(var(--feb-rosa-ballet-rgb), 0.38);
+
+  --feb-prefooter-brillo: radial-gradient(
+      ellipse 130% 90% at 12% 45%,
+      rgba(var(--feb-rosa-sorbete-rgb), 0.26),
+      transparent 58%
+    ),
+    radial-gradient(
+      ellipse 115% 85% at 88% 38%,
+      rgba(var(--feb-rosa-ballet-rgb), 0.22),
+      transparent 56%
+    ),
+    radial-gradient(
+      ellipse 95% 130% at 50% 55%,
+      rgba(var(--feb-pastel-polvo-rgb), 0.12),
+      transparent 68%
+    );
+
+  --feb-texto-sobre-logo: var(--feb-profundo);
+  --feb-texto-sobre-logo-muted: rgba(var(--feb-profundo-rgb), 0.78);
+
+  --wa-green: #25d366;
+  --wa-green-hover: #20bd5a;
+  --wa-green-active: #1da851;
+  --wa-green-rgb: 37, 211, 102;
+
+  --bs-success: var(--feb-acento);
+  --bs-success-rgb: var(--feb-acento-rgb);
+  --bs-success-text-emphasis: #3d1a1f;
+  --bs-success-bg-subtle: var(--feb-palido);
+  --bs-success-border-subtle: #d4bfc4;
+}
+
+.bg-feb-palido {
+  background-color: var(--feb-palido) !important;
+}
+
+.bg-feb-profundo {
+  background-color: var(--feb-profundo) !important;
+}
+
+.bg-feb-marca {
+  background-color: var(--feb-negro-marca) !important;
+}
+
+.footer-wa-tooltip,
+.card-wa-tooltip {
+  position: absolute;
+  left: calc(100% + 10px);
+  top: 50%;
+  translate: -6px -50%;
+  padding: 0.4rem 0.75rem;
+  background: #fff;
+  color: var(--feb-profundo, #3a0f18);
+  font-family: var(--feb-font-marca);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+  white-space: nowrap;
+  border-radius: 0.4rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 20;
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease,
+    translate 0.2s ease;
+}
+
+.footer-wa-tooltip::after,
+.card-wa-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  translate: 2px -50%;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 7px 8px 7px 0;
+  border-color: transparent #fff transparent transparent;
+  filter: drop-shadow(-2px 0 3px rgba(0, 0, 0, 0.12));
+}
+
+.footer-wa-wrap:hover .footer-wa-tooltip,
+.footer-wa-wrap:focus-within .footer-wa-tooltip,
+.card-wa-wrap:hover .card-wa-tooltip,
+.card-wa-wrap:focus-within .card-wa-tooltip {
+  opacity: 1;
+  visibility: visible;
+  translate: 0 -50%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-wa-tooltip,
+  .card-wa-tooltip {
+    transition: none;
+    translate: 0 -50%;
+  }
+}
+
+.btn-whatsapp {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--wa-green);
+  --bs-btn-border-color: var(--wa-green);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--wa-green-hover);
+  --bs-btn-hover-border-color: var(--wa-green-hover);
+  --bs-btn-focus-shadow-rgb: var(--wa-green-rgb);
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--wa-green-active);
+  --bs-btn-active-border-color: var(--wa-green-active);
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: var(--wa-green);
+  --bs-btn-disabled-border-color: var(--wa-green);
+}
+
+.btn-success {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--feb-acento);
+  --bs-btn-border-color: var(--feb-acento);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--feb-acento-hover);
+  --bs-btn-hover-border-color: #4a2229;
+  --bs-btn-focus-shadow-rgb: var(--feb-acento-rgb);
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--feb-acento-active);
+  --bs-btn-active-border-color: #3d1c22;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: var(--feb-acento);
+  --bs-btn-disabled-border-color: var(--feb-acento);
+}
+
+.btn-outline-success {
+  --bs-btn-color: var(--feb-acento);
+  --bs-btn-border-color: var(--feb-acento);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--feb-acento);
+  --bs-btn-hover-border-color: var(--feb-acento);
+  --bs-btn-focus-shadow-rgb: var(--feb-acento-rgb);
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--feb-acento-hover);
+  --bs-btn-active-border-color: #4a2229;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: var(--feb-acento);
+  --bs-btn-disabled-bg: transparent;
+  --bs-btn-disabled-border-color: var(--feb-acento);
+  --bs-gradient: none;
+}

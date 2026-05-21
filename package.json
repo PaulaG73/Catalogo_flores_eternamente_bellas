@@ -1,16 +1,15 @@
 {
-  "name": "catalogo_madre",
+  "name": "catalogo-flores-eternamente-bellas",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "fix-logo": "node scripts/knockout-white-logo.cjs",
     "optimize-pack-og": "node scripts/optimize-pack-share-images.cjs"
   },
   "dependencies": {
-    "@fontsource/bricolage-grotesque": "^5.2.10",
+    "@fontsource/comic-neue": "^5.2.7",
     "bootstrap": "^5.3.8",
     "core-js": "^3.8.3",
     "vue": "^3.2.13",

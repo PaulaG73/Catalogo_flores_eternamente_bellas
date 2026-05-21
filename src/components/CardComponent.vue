@@ -33,31 +33,32 @@
           :class="titleAlign === 'center' ? 'text-center' : 'text-start'"
         >
           <h6 v-if="titleTrim" class="card-title fw-bold mb-0">{{ titleTrim }}</h6>
-          <p
-            v-if="winery"
-            class="card-winery mb-0 fw-bold"
-            :class="{ 'card-winery--ft-split': wineryFtSplit }"
-          >
-            <template v-if="wineryFtSplit">
-              <span class="card-winery-upper">{{ wineryFtSplit.before }}</span><span class="card-winery-ft"> ft. </span><span class="card-winery-upper">{{ wineryFtSplit.after }}</span>
-            </template>
-            <template v-else>{{ winery }}</template>
-          </p>
         </div>
         <div class="card-meta flex-grow-1 text-start min-w-0">
           <div v-if="descripcionTrim" class="card-meta-row">
-            <p class="card-descripcion">{{ descripcionTrim }}</p>
+            <p v-if="!tieneLinkColor" class="card-descripcion">{{ descripcionTrim }}</p>
+            <p v-else class="card-descripcion">
+              <template v-for="(parte, parteIdx) in descripcionPartes" :key="`desc-${parteIdx}`">
+                <span v-if="parte.tipo === 'texto'">{{ parte.valor }}</span>
+                <button
+                  v-else
+                  type="button"
+                  class="card-color-link"
+                  @click="abrirPopupColores"
+                >
+                  color
+                </button>
+              </template>
+            </p>
+            <button
+              v-if="mostrarBotonColoresOval"
+              type="button"
+              class="card-colores-oval-btn"
+              @click="abrirPopupColores"
+            >
+              colores
+            </button>
           </div>
-          <template v-else>
-            <div v-if="cepa" class="card-meta-row">
-              <span class="card-meta-label">Cepa</span>
-              <p class="card-cepa">{{ cepa }}</p>
-            </div>
-            <div v-if="valle" class="card-meta-row">
-              <span class="card-meta-label">Valle</span>
-              <p class="card-valle">{{ valle }}</p>
-            </div>
-          </template>
         </div>
         <div class="card-divider-wrap">
           <hr class="card-divider flex-shrink-0">
@@ -71,8 +72,20 @@
               <p class="card-price-kicker mb-1">Precio especial</p>
               <p class="card-price-special mb-0 fw-bold text-success">{{ precioEspecialTrim }}</p>
             </template>
-            <template v-else>
-              <p class="card-price mb-0 fw-bold text-success">{{ price }}</p>
+            <template v-else-if="preciosLista.length">
+              <ul class="card-precios-list list-unstyled mb-0 w-100">
+                <li
+                  v-for="(tier, tierIdx) in preciosLista"
+                  :key="`precio-${tierIdx}`"
+                  class="card-precio-tier"
+                >
+                  <span class="card-precio-tier__etiqueta">{{ tier.etiqueta }}</span>
+                  <span class="card-precio-tier__valor fw-bold text-success">{{ tier.valor }}</span>
+                </li>
+              </ul>
+            </template>
+            <template v-else-if="priceTrim">
+              <p class="card-price mb-0 fw-bold text-success">{{ priceTrim }}</p>
             </template>
           </div>
         </div>
@@ -108,15 +121,59 @@
         </div>
       </div>
     </div>
+
+    <Teleport to="body">
+      <div
+        v-if="popupColoresAbierto"
+        class="card-color-popup-backdrop"
+        role="presentation"
+        @click="cerrarPopupColores"
+      >
+        <div
+          class="card-color-popup"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="card-color-popup-title"
+          @click.stop
+        >
+          <button
+            type="button"
+            class="card-color-popup__cerrar"
+            aria-label="Cerrar"
+            @click="cerrarPopupColores"
+          >
+            &times;
+          </button>
+          <h6 id="card-color-popup-title" class="card-color-popup__titulo">
+            Significado según color
+          </h6>
+          <ul class="card-color-popup__lista list-unstyled mb-0">
+            <li
+              v-for="(item, itemIdx) in significadoColoresLista"
+              :key="`color-sign-${itemIdx}`"
+              class="card-color-popup__item"
+            >
+              <span class="card-color-popup__color">{{ item.color }}:</span>
+              {{ item.significado }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </Teleport>
   </template>
   
   <script setup>
-  import { computed } from 'vue'
-  import { getWhatsAppFlowerUrl, getWhatsAppPackUrl, isWhatsAppConfigured } from '@/config/whatsapp'
+  import { computed, onUnmounted, ref, watch } from 'vue'
+  import {
+    getWhatsAppConsultaUrl,
+    getWhatsAppFlowerUrl,
+    getWhatsAppPackUrl,
+    isWhatsAppConfigured,
+  } from '@/config/whatsapp'
   import { catalogoNombre } from '../utils/catalogo'
 
   const props = defineProps({
-    wineId: {
+    itemId: {
       type: String,
       required: true,
     },
@@ -133,17 +190,13 @@
       type: String,
       default: '',
     },
-    valle: {
-      type: String,
-      default: '',
+    significadoColores: {
+      type: Array,
+      default: () => [],
     },
-    winery: {
-      type: String,
-      default: '',
-    },
-    cepa: {
-      type: String,
-      default: '',
+    botonColores: {
+      type: Boolean,
+      default: false,
     },
     image: {
       type: String,
@@ -151,7 +204,21 @@
     },
     price: {
       type: String,
-      required: true,
+      default: '',
+    },
+    precios: {
+      type: Array,
+      default: () => [],
+    },
+    whatsappConsulta: {
+      type: Boolean,
+      default: false,
+    },
+    /** flor | ramo | accesorio — texto del tooltip de WhatsApp */
+    catalogoTipo: {
+      type: String,
+      default: 'ramo',
+      validator: (v) => ['flor', 'ramo', 'accesorio'].includes(v),
     },
     precioEspecial: {
       type: String,
@@ -179,6 +246,81 @@
     typeof props.descripcion === 'string' ? props.descripcion.trim() : '',
   )
 
+  const COLOR_LINK_RE = /\bcolor\b/i
+
+  const significadoColoresLista = computed(() => {
+    if (!Array.isArray(props.significadoColores)) return []
+    return props.significadoColores
+      .map((item) => {
+        const color = typeof item?.color === 'string' ? item.color.trim() : ''
+        const significado =
+          typeof item?.significado === 'string' ? item.significado.trim() : ''
+        if (!color || !significado) return null
+        return { color, significado }
+      })
+      .filter(Boolean)
+  })
+
+  const tieneLinkColor = computed(
+    () =>
+      significadoColoresLista.value.length > 0 &&
+      COLOR_LINK_RE.test(descripcionTrim.value),
+  )
+
+  const mostrarBotonColoresOval = computed(
+    () => props.botonColores && significadoColoresLista.value.length > 0,
+  )
+
+  const descripcionPartes = computed(() => {
+    if (!tieneLinkColor.value) return []
+    const texto = descripcionTrim.value
+    const re = /\bcolor\b/i
+    const partes = []
+    let resto = texto
+    let match = re.exec(resto)
+    while (match) {
+      if (match.index > 0) {
+        partes.push({ tipo: 'texto', valor: resto.slice(0, match.index) })
+      }
+      partes.push({ tipo: 'link', valor: match[0] })
+      resto = resto.slice(match.index + match[0].length)
+      match = re.exec(resto)
+    }
+    if (resto) partes.push({ tipo: 'texto', valor: resto })
+    return partes
+  })
+
+  const popupColoresAbierto = ref(false)
+
+  function abrirPopupColores() {
+    popupColoresAbierto.value = true
+  }
+
+  function cerrarPopupColores() {
+    popupColoresAbierto.value = false
+  }
+
+  function onPopupColoresKeydown(e) {
+    if (e.key === 'Escape') cerrarPopupColores()
+  }
+
+  watch(popupColoresAbierto, (abierto) => {
+    if (typeof document === 'undefined') return
+    if (abierto) {
+      document.addEventListener('keydown', onPopupColoresKeydown)
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.removeEventListener('keydown', onPopupColoresKeydown)
+      document.body.style.overflow = ''
+    }
+  })
+
+  onUnmounted(() => {
+    if (typeof document === 'undefined') return
+    document.removeEventListener('keydown', onPopupColoresKeydown)
+    document.body.style.overflow = ''
+  })
+
   const titleTrim = computed(() =>
     typeof props.title === 'string' ? props.title.trim() : '',
   )
@@ -189,34 +331,44 @@
     catalogoNombre({ nombre: props.title, image: props.image }),
   )
 
-  const imageAlt = computed(() => {
-    if (props.winery) return `${nombreCatalogo.value}. ${props.winery}`
-    return nombreCatalogo.value
+  const imageAlt = computed(() => nombreCatalogo.value || 'Producto del catálogo')
+
+  const priceTrim = computed(() =>
+    typeof props.price === 'string' ? props.price.trim() : '',
+  )
+
+  const preciosLista = computed(() => {
+    if (!Array.isArray(props.precios)) return []
+    return props.precios
+      .map((tier) => {
+        const etiqueta = typeof tier?.etiqueta === 'string' ? tier.etiqueta.trim() : ''
+        const valor = typeof tier?.valor === 'string' ? tier.valor.trim() : ''
+        if (!etiqueta || !valor) return null
+        return { etiqueta, valor }
+      })
+      .filter(Boolean)
   })
 
   const tienePrecioEspecial = computed(() => precioEspecialTrim.value.length > 0)
 
-  /** Id 10: mostrar «ft.» en minúsculas (el uppercase del bloque lo convertiría en FT.) */
-  const wineryFtSplit = computed(() => {
-    if (props.wineId !== '10') return null
-    const m = props.winery.match(/^(.+?)\s+ft\.\s+(.+)$/i)
-    if (!m) return null
-    return { before: m[1].toUpperCase(), after: m[2].toUpperCase() }
-  })
-
   const whatsappUrl = computed(() => {
+    if (props.whatsappConsulta) {
+      return getWhatsAppConsultaUrl({
+        nombre: nombreCatalogo.value,
+        src: props.image,
+      })
+    }
     if (esFlor.value) {
       return getWhatsAppFlowerUrl({
         nombre: nombreCatalogo.value,
-        precio: props.price,
+        precio: priceTrim.value,
         src: props.image,
       })
     }
     return getWhatsAppPackUrl({
-      packId: props.wineId,
       title: props.title,
-      valle: props.valle,
-      price: props.price,
+      catalogoTipo: props.catalogoTipo,
+      price: priceTrim.value,
       precioEspecial: precioEspecialTrim.value,
       image: props.image,
     })
@@ -227,12 +379,22 @@
 
   const waTooltipText = computed(() => {
     if (props.agotado) return 'Producto agotado'
-    return esFlor.value ? 'Pide esta flor aquí...' : 'Pide este vino aquí...'
+    const porTipo = {
+      flor: 'Pide esta flor aquí...',
+      ramo: 'Pide este ramo aquí...',
+      accesorio: 'Pide este accesorio aquí...',
+    }
+    return porTipo[props.catalogoTipo] || porTipo.ramo
   })
 
   const whatsappLinkAriaLabel = computed(() => {
     if (props.agotado) return `${nombreCatalogo.value}, agotado`
-    return `Pedir ${nombreCatalogo.value} por WhatsApp`
+    const articulo = {
+      flor: 'esta flor',
+      ramo: 'este ramo',
+      accesorio: 'este accesorio',
+    }[props.catalogoTipo] || 'este producto'
+    return `Pedir ${articulo} por WhatsApp`
   })
 
   let lastWaOpenMs = 0
@@ -254,10 +416,12 @@
   <style scoped>
   .card-pack {
     min-height: 0;
+    min-width: 0;
+    max-width: 100%;
     border-radius: 1.1rem;
     overflow: visible;
     --bs-card-inner-border-radius: calc(1.1rem - 1px);
-    border: 1px solid rgba(var(--vin-rosa-ballet-rgb), 0.5) !important;
+    border: 1px solid rgba(var(--feb-rosa-ballet-rgb), 0.5) !important;
     background:
       linear-gradient(
         185deg,
@@ -268,8 +432,8 @@
       );
     box-shadow:
       0 14px 32px rgba(42, 32, 38, 0.26),
-      0 0 0 1px rgba(var(--vin-leche-rgb), 0.35) inset,
-      0 -2px 20px rgba(var(--vin-rosa-sorbete-rgb), 0.12) inset;
+      0 0 0 1px rgba(var(--feb-leche-rgb), 0.35) inset,
+      0 -2px 20px rgba(var(--feb-rosa-sorbete-rgb), 0.12) inset;
     transition:
       transform 0.28s ease,
       box-shadow 0.28s ease,
@@ -278,20 +442,20 @@
 
   .card-pack:hover {
     transform: translateY(-3px);
-    border-color: rgba(var(--vin-rosa-sorbete-rgb), 0.65) !important;
+    border-color: rgba(var(--feb-rosa-sorbete-rgb), 0.65) !important;
     box-shadow:
       0 20px 38px rgba(42, 32, 38, 0.28),
-      0 0 0 1px rgba(var(--vin-pastel-nube-rgb), 0.5) inset,
-      0 0 24px rgba(var(--vin-rosa-melocoton-rgb), 0.18);
+      0 0 0 1px rgba(var(--feb-pastel-nube-rgb), 0.5) inset,
+      0 0 24px rgba(var(--feb-rosa-melocoton-rgb), 0.18);
   }
 
   .card-pack--agotado:hover {
     transform: translateY(-1px);
-    border-color: rgba(var(--vin-rosa-ballet-rgb), 0.45) !important;
+    border-color: rgba(var(--feb-rosa-ballet-rgb), 0.45) !important;
     box-shadow:
       0 14px 28px rgba(42, 32, 38, 0.22),
-      0 0 0 1px rgba(var(--vin-leche-rgb), 0.35) inset,
-      0 -2px 20px rgba(var(--vin-rosa-sorbete-rgb), 0.1) inset;
+      0 0 0 1px rgba(var(--feb-leche-rgb), 0.35) inset,
+      0 -2px 20px rgba(var(--feb-rosa-sorbete-rgb), 0.1) inset;
   }
   
   .card-pack-body {
@@ -366,15 +530,15 @@
     font-weight: 800;
     letter-spacing: 0.11em;
     text-transform: uppercase;
-    color: var(--vin-texto-claro);
-    text-shadow: 0 1px 2px rgba(var(--vin-profundo-rgb), 0.45);
+    color: var(--feb-texto-claro);
+    text-shadow: 0 1px 2px rgba(var(--feb-profundo-rgb), 0.45);
     text-align: left;
     line-height: 1.15;
-    background-image: var(--vin-btn-carousel-fill);
+    background-image: var(--feb-btn-carousel-fill);
     border: 1px solid rgba(255, 236, 245, 0.42);
     box-shadow:
-      0 2px 14px rgba(var(--vin-acento-rgb), 0.34),
-      0 0 20px rgba(var(--vin-rosa-sorbete-rgb), 0.22),
+      0 2px 14px rgba(var(--feb-acento-rgb), 0.34),
+      0 0 20px rgba(var(--feb-rosa-sorbete-rgb), 0.22),
       0 1px 0 rgba(255, 255, 255, 0.2) inset;
   }
 
@@ -419,18 +583,129 @@
   }
   
   @media (max-width: 575.98px) {
+    .card-pack {
+      height: auto !important;
+    }
+
     .card-img-wrap {
-      aspect-ratio: unset;
-      height: min(72vw, 340px);
+      aspect-ratio: 4 / 3;
+      height: auto;
+      max-height: clamp(10.5rem, 38vw, 13.5rem);
+    }
+
+    .card-img-top {
+      object-fit: contain;
+      object-position: center center;
+    }
+
+    .card-pack:hover .card-img-top {
+      transform: none;
+    }
+
+    .card-pack-body {
+      padding: 0.55rem 0.58rem 0.6rem;
+      flex: 0 0 auto;
+    }
+
+    .card-mainline {
+      flex-shrink: 0;
+    }
+
+    .card-title {
+      font-size: clamp(0.9rem, 4.2vw, 1.02rem);
+      line-height: 1.25;
+    }
+
+    .card-meta {
+      flex: 0 1 auto;
+    }
+
+    .card-descripcion {
+      font-size: clamp(0.66rem, 3.2vw, 0.74rem);
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 4;
+      overflow: hidden;
+    }
+
+    .card-wa-btn {
+      width: 2.35rem;
+      height: 2.35rem;
+    }
+  }
+
+  @media (min-width: 576px) and (max-width: 991.98px) {
+    .card-pack {
+      height: auto !important;
+    }
+
+    .card-img-wrap {
+      aspect-ratio: 4 / 3;
+      height: auto;
+      max-height: clamp(12rem, 24vw, 16.5rem);
+    }
+
+    .card-img-top {
+      object-fit: contain;
+      object-position: center center;
+    }
+
+    .card-pack:hover .card-img-top {
+      transform: none;
+    }
+
+    .card-pack-body {
+      flex: 0 0 auto;
+    }
+
+    .card-mainline {
+      flex-shrink: 0;
+    }
+
+    .card-title {
+      font-size: clamp(0.88rem, 2.1vw, 1rem);
+      line-height: 1.25;
+    }
+
+    .card-meta {
+      flex: 0 1 auto;
+    }
+
+    .card-descripcion {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 5;
+      overflow: hidden;
     }
   }
   
+  /* Salto solo entre palabras; sin guiones ni cortes arbitrarios */
+  .card-pack .card-title,
+  .card-pack .card-descripcion,
+  .card-pack .card-price,
+  .card-pack .card-price-ref,
+  .card-pack .card-price-kicker,
+  .card-pack .card-price-special,
+  .card-pack .card-precio-tier,
+  .card-pack .card-precio-tier__etiqueta,
+  .card-pack .card-precio-tier__valor,
+  .card-pack .card-agotado-badge,
+  .card-pack .card-ultima-unidad-chip {
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+  }
+
   .card-mainline {
     margin-bottom: 0.15rem;
+    min-width: 0;
+    max-width: 100%;
   }
   
   .card-title {
-    overflow-wrap: break-word;
     font-size: clamp(0.86rem, 2.3vw, 1.02rem);
     line-height: 1.2;
     font-weight: 700;
@@ -442,29 +717,6 @@
     text-align: center;
   }
 
-  .card-winery {
-    margin-top: 0.22rem;
-    font-size: clamp(0.68rem, 1.62vw, 0.79rem);
-    line-height: 1.35;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    font-style: italic;
-    color: rgba(var(--vin-acento-rgb), 0.72);
-  }
-
-  .card-winery--ft-split {
-    text-transform: none;
-  }
-
-  .card-winery-upper {
-    text-transform: uppercase;
-  }
-
-  .card-winery-ft {
-    text-transform: lowercase;
-    font-style: italic;
-  }
-
   .card-meta {
     min-height: 0;
     min-width: 0;
@@ -474,57 +726,141 @@
     gap: 0.38rem;
     padding-top: 0.28rem;
     margin-top: 0.1rem;
-    border-top: 1px solid rgba(var(--vin-acento-rgb), 0.12);
+    border-top: 1px solid rgba(var(--feb-acento-rgb), 0.12);
   }
 
   .card-meta-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.42rem;
     padding-left: 0.38rem;
-    border-left: 2px solid rgba(var(--vin-acento-rgb), 0.42);
+    border-left: 2px solid rgba(var(--feb-acento-rgb), 0.42);
     min-width: 0;
   }
 
-  .card-meta-label {
-    display: block;
-    font-size: clamp(0.48rem, 1.05vw, 0.54rem);
-    font-weight: 800;
-    letter-spacing: 0.13em;
-    text-transform: uppercase;
-    color: rgba(var(--vin-acento-rgb), 0.88);
-    margin-bottom: 0.14rem;
-    line-height: 1;
-  }
-
-  /*
-   * Por debajo del título del vino (~1.02rem) y un pelín sobre la viña en peso,
-   * sin igualar su tamaño visual.
-   */
-  .card-cepa,
   .card-descripcion {
     margin: 0;
     font-size: clamp(0.68rem, 1.48vw, 0.76rem);
-    line-height: 1.3;
-    font-weight: 700;
+    line-height: 1.45;
+    font-weight: 500;
     letter-spacing: 0.015em;
     color: #231e22;
-    overflow-wrap: break-word;
+    text-align: left;
   }
 
-  .card-descripcion {
-    font-weight: 500;
-    line-height: 1.45;
-    text-align: justify;
-    text-justify: inter-word;
-    hyphens: auto;
+  .card-color-link {
+    display: inline;
+    padding: 0;
+    border: none;
+    background: none;
+    font: inherit;
+    font-weight: 800;
+    color: var(--feb-acento);
+    text-decoration: underline;
+    text-underline-offset: 0.12em;
+    cursor: pointer;
   }
 
-  .card-valle {
+  .card-color-link:hover {
+    color: var(--feb-acento-hover);
+  }
+
+  .card-color-link:focus-visible {
+    outline: 2px solid rgba(var(--feb-acento-rgb), 0.65);
+    outline-offset: 2px;
+    border-radius: 0.15rem;
+  }
+
+  .card-colores-oval-btn {
+    display: inline-block;
     margin: 0;
-    font-size: clamp(0.635rem, 1.32vw, 0.7rem);
-    line-height: 1.32;
-    font-weight: 600;
-    letter-spacing: 0.012em;
-    color: #302a2e;
-    overflow-wrap: break-word;
+    padding: 0.22rem 0.85rem;
+    border: 1.5px solid var(--feb-acento);
+    border-radius: 999px;
+    background: rgba(var(--feb-acento-rgb), 0.08);
+    font-size: clamp(0.62rem, 1.35vw, 0.7rem);
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: lowercase;
+    color: var(--feb-acento);
+    line-height: 1.3;
+    cursor: pointer;
+    transition:
+      background 0.15s ease,
+      color 0.15s ease,
+      border-color 0.15s ease;
+  }
+
+  .card-colores-oval-btn:hover {
+    background: var(--feb-acento);
+    color: #fff;
+    border-color: var(--feb-acento);
+  }
+
+  .card-colores-oval-btn:focus-visible {
+    outline: 2px solid rgba(var(--feb-acento-rgb), 0.65);
+    outline-offset: 2px;
+  }
+
+  .card-color-popup-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1080;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: rgba(20, 14, 18, 0.55);
+  }
+
+  .card-color-popup {
+    position: relative;
+    width: min(100%, 22rem);
+    max-height: min(85vh, 32rem);
+    overflow: auto;
+    padding: 1.1rem 1.15rem 1rem;
+    border-radius: 0.85rem;
+    background: #fff;
+    color: var(--feb-profundo);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
+  }
+
+  .card-color-popup__cerrar {
+    position: absolute;
+    top: 0.35rem;
+    right: 0.45rem;
+    border: none;
+    background: transparent;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--feb-profundo);
+    cursor: pointer;
+    padding: 0.15rem 0.35rem;
+  }
+
+  .card-color-popup__titulo {
+    margin: 0 1.5rem 0.65rem 0;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--feb-acento);
+  }
+
+  .card-color-popup__lista {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .card-color-popup__item {
+    font-size: 0.82rem;
+    line-height: 1.45;
+    text-align: left;
+  }
+
+  .card-color-popup__color {
+    font-weight: 800;
+    color: var(--feb-acento);
   }
 
   .card-divider-wrap {
@@ -533,7 +869,7 @@
   }
   
   .card-divider {
-    border-color: rgba(var(--vin-acento-rgb), 0.24);
+    border-color: rgba(var(--feb-acento-rgb), 0.24);
     opacity: 1;
     margin: 0;
     width: 100%;
@@ -547,6 +883,13 @@
     box-sizing: border-box;
     padding-top: 0.25rem;
     padding-bottom: 0.15rem;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .card-price-stack {
+    min-width: 0;
+    max-width: 100%;
   }
 
   .card-price-footer:has(.card-price-special) {
@@ -559,7 +902,7 @@
     font-weight: 800;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: rgba(var(--vin-acento-rgb), 0.85);
+    color: rgba(var(--feb-acento-rgb), 0.85);
     line-height: 1.2;
   }
 
@@ -567,7 +910,6 @@
     font-size: clamp(1rem, 2.35vw, 1.12rem);
     line-height: 1.15;
     letter-spacing: 0.02em;
-    overflow-wrap: break-word;
   }
 
   /* Precio referencia en negro; la raya del tachado usa el acento (como el precio especial) */
@@ -594,7 +936,7 @@
     top: 50%;
     height: 2px;
     margin-top: -1px;
-    background: var(--vin-acento);
+    background: var(--feb-acento);
     transform: rotate(-15deg);
     transform-origin: center center;
     pointer-events: none;
@@ -606,8 +948,68 @@
     font-size: clamp(0.9rem, 2.1vw, 1rem);
     line-height: 1.2;
     letter-spacing: 0.02em;
-    overflow-wrap: break-word;
     font-weight: 700;
+  }
+
+  .card-precios-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: baseline;
+    gap: 0.15rem 0.3rem;
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .card-precio-tier {
+    display: inline-flex;
+    flex: 0 0 auto;
+    flex-wrap: nowrap;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.12rem 0.18rem;
+    font-size: clamp(0.62rem, 1.45vw, 0.74rem);
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .card-precio-tier:not(:last-child)::after {
+    content: '·';
+    margin-inline: 0.12rem 0.02rem;
+    font-weight: 700;
+    color: rgba(var(--feb-acento-rgb), 0.5);
+  }
+
+  .card-precio-tier__etiqueta {
+    font-weight: 600;
+    color: #302a2e;
+    flex: none;
+    text-align: inherit;
+  }
+
+  .card-precio-tier__valor {
+    font-size: clamp(0.66rem, 1.55vw, 0.8rem);
+    letter-spacing: 0.01em;
+  }
+
+  @media (max-width: 575.98px) {
+    .card-precios-list {
+      gap: 0.1rem 0.22rem;
+    }
+
+    .card-precio-tier {
+      font-size: clamp(0.54rem, 2.35vw, 0.66rem);
+    }
+
+    .card-precio-tier__valor {
+      font-size: clamp(0.58rem, 2.45vw, 0.68rem);
+    }
+  }
+
+  .card-price-footer:has(.card-precios-list) {
+    min-height: auto;
+    padding-bottom: 0.35rem;
   }
 
   .card-wa-footer {

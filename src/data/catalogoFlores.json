@@ -2,121 +2,191 @@
   {
     "id": "1",
     "texto": "Es una flor silvestre nativa de Chile. Simboliza la identidad natural local y la resiliencia (ya que crece en terrenos secos y florece cada primavera).",
-    "image": "/img/Azulillo.jpg",
+    "image": "/img/azulillo.jpg",
     "price": "$6.000"
   },
   {
     "id": "2",
     "texto": "Simboliza la pureza, elegancia, inocencia y la vida eterna.",
-    "image": "/img/Cala.jpg",
+    "image": "/img/cala.jpg",
     "price": "$6.000"
   },
   {
     "id": "3",
     "texto": "Es la flor nacional de Chile. Simboliza la felicidad, la amistad, la gratitud y la valentía.",
-    "image": "/img/Copihues.jpg",
+    "image": "/img/copihues.jpg",
     "price": "$10.000"
   },
   {
     "id": "4",
     "texto": "Simboliza principalmente la elegancia, la fuerza interior, el compromiso y la resiliencia.Sin embargo, su significado varía profundamente según su color.",
-    "image": "/img/Dalia.jpg",
+    "significadoColores": [
+      { "color": "Rojas", "significado": "Simbolizan amor apasionado, fuerza y poder." },
+      { "color": "Rosadas", "significado": "Simbolizan gracia, cariño, bondad y ternura, son el equivalente a un abrazo cálido." },
+      { "color": "Blancas", "significado": "Simbolizan pureza, inocencia y nuevos comienzos." },
+      { "color": "Amarillas y Naranjas", "significado": "Simbolizan alegría, felicidad, energía positiva y vitalidad." },
+      { "color": "Moradas", "significado": "Simbolizan dignidad, respeto y elegancia." },
+      { "color": "Azules", "significado": "Simbolizan tranquilidad, equilibrio interior y nuevos comienzos." }
+    ],
+    "image": "/img/dalia.jpg",
     "price": "$8.000"
   },
   {
     "id": "5",
     "texto": "Es una flor nativa de Suiza.Simboliza pureza, valentía y amor eterno.",
-    "image": "/img/Edelweiss.jpg",
+    "image": "/img/edelweiss.jpg",
     "price": "$7.000"
   },
   {
     "id": "6",
     "texto": "Simboliza principalmente la alegría, la pureza, la inocencia y la energía positiva. Sin embargo, su significado varía profundamente según su color.",
-    "image": "/img/Gerbera.jpg",
+    "significadoColores": [
+      { "color": "Rojas", "significado": "Simbolizan pasión, amor profundo y entrega." },
+      { "color": "Rosadas", "significado": "Simbolizan admiración, respeto y profundo agradecimiento." },
+      { "color": "Blancas", "significado": "Simbolizan pureza, paz y inocencia." },
+      { "color": "Amarillas", "significado": "Simbolizan alegría radiante, energía y una ternura sublime." },
+      { "color": "Naranjas", "significado": "Simbolizan la alegría de vivir, entusiasmo y amistad." },
+      { "color": "Moradas", "significado": "Simbolizan elegancia, respeto, admiración y belleza femenina." },
+      { "color": "Azules", "significado": "Simbolizan paz, serenidad y plenitud interior." }
+    ],
+    "image": "/img/gerbera.jpg",
     "price": "$8.000"
   },
   {
     "id": "7",
     "texto": "Simboliza la energía, el sol, la alegría y el amor profundo.",
-    "image": "/img/Girasol_XL.jpg",
+    "image": "/img/girasol_XL.jpg",
     "price": "$10.000"
   },
   {
     "id": "8",
     "texto": "Simboliza la belleza delicada, la feminidad, el amor intenso y el disfrutar del momento presente..",
-    "image": "/img/Hibisco.jpg",
+    "image": "/img/hibisco.jpg",
     "price": "$7.000"
   },
   {
     "id": "9",
     "texto": "Simboliza el amor eterno, la fidelidad y la alegría..",
-    "image": "/img/Jacinto.jpg",
+    "image": "/img/jacinto.jpg",
     "price": "$7.000"
   },
   {
     "id": "10",
     "texto": "Destaca como un poderoso amuleto protector, actúa como escudo contra la negatividad y atracción de abundancia..",
-    "image": "/img/Lengua_de_suegra.jpg",
+    "image": "/img/lengua_de_suegra.jpg",
     "price": "$10.000"
   },
   {
     "id": "11",
     "texto": "Simboliza la despedida, el renacimiento y el paso hacia el más allá..",
-    "image": "/img/Lirio_araña.jpg",
+    "image": "/img/lirio_araña.jpg",
     "price": "$9.000"
   },
   {
     "id": "12",
     "texto": "Simboliza la esperanza, la renovación y los nuevos comienzos..",
-    "image": "/img/Lirio_de_lluvia.jpg",
+    "image": "/img/lirio_de_lluvia.jpg",
     "price": "$8.000"
   },
   {
     "id": "13",
-    "texto": "Simboliza principalmente la pureza, la inocencia, el renacimiento y la feminidad.Sin embargo, su significado varía profundamente según su color.",
-    "image": "/img/Lirio.jpg",
+    "texto": "Simboliza principalmente la pureza, la inocencia, el renacimiento y la feminidad. Sin embargo, su significado varía profundamente según el color.",
+    "botonColores": true,
+    "significadoColores": [
+      { "color": "Rojos", "significado": "amor apasionado, romance intenso y seducción." },
+      { "color": "Rosados", "significado": "Simbolizan admiración, compasión, ternura y gratitud." },
+      { "color": "Blancos", "significado": "Simbolizan inocencia, pureza y virtud." },
+      { "color": "Amarillos", "significado": "Simbolizan felicidad, alegría, optimismo y lealtad entre amigos." },
+      { "color": "Naranjos", "significado": "Simbolizan energía positiva, pasión y entusiasmo." },
+      { "color": "Morados", "significado": "Simbolizan realeza, elegancia, respeto y espiritualidad." },
+      { "color": "Azules", "significado": "Simbolizan confianza, lealtad, sabiduría y tranquilidad." }
+    ],
+    "image": "/img/lirio.jpg",
     "price": "$6.000"
   },
   {
     "id": "14",
     "texto": "Simboliza la buena fortuna, la felicidad y la longevidad..",
-    "image": "/img/Mano_de_buda.jpg",
+    "image": "/img/mano_de_buda.jpg",
     "price": "$8.000"
   },
   {
     "id": "15",
     "texto": "Simboliza la inocencia, la pureza, la alegría y los nuevos comienzos..",
-    "image": "/img/Margarita_XL.jpg",
+    "image": "/img/margarita_XL.jpg",
     "price": "$8.000"
   },
   {
     "id": "16",
     "texto": "Simboliza principalmente la belleza, el amor, la feminidad y la elegancia. Sin embargo, su significado varía profundamente según su color.",
-    "image": "/img/Orquídea_con_maceta.jpg",
-    "price": "$7.000"
+    "botonColores": true,
+    "significadoColores": [
+      { "color": "Rojas", "significado": "Simbolizan pasión, deseo intenso y amor profundo." },
+      { "color": "Rosadas", "significado": "Simbolizan amor sincero, la feminidad, ternura y alegría." },
+      { "color": "Blancas", "significado": "Simbolizan pureza, inocencia, paz y amor eterno e incondicional." },
+      { "color": "Amarillas", "significado": "Simbolizan alegría, amistad, energía positiva y buenos augurios para nuevos comienzos." },
+      { "color": "Naranjas", "significado": "Simbolizan energía, entusiasmo, resiliencia y motivación." },
+      { "color": "Moradas", "significado": "Simbolizan respeto, admiración, realeza y sabiduría." },
+      { "color": "Azules", "significado": "Simbolizan esperanza, paz interior y exclusividad." }
+    ],
+    "image": "/img/orquidea_maceta.jpg",
+    "price": "$20.000"
   },
   {
     "id": "17",
     "texto": "Simboliza la prosperidad, el amor, la buena fortuna y el honor.",
-    "image": "/img/Peonía.jpg",
+    "image": "/img/peonia.jpg",
     "price": "$9.000"
   },
   {
     "id": "18",
     "texto": "Es el símbolo universal del amor, la pasión y la belleza. Sin embargo, su significado varía profundamente según su color.",
-    "image": "/img/Rosa.jpg",
+    "significadoColores": [
+      { "color": "Rojas", "significado": "Simbolizan amor profundo, pasión y romanticismo." },
+      { "color": "Rosadas", "significado": "Simbolizan gratitud, admiración, cariño y dulzura." },
+      { "color": "Blancas", "significado": "Simbolizan pureza, inocencia y nuevos comienzos." },
+      { "color": "Amarillas", "significado": "Simbolizan alegría, amistad y energía positiva." },
+      { "color": "Naranjas", "significado": "Simbolizan entusiasmo, éxito y fascinación." },
+      { "color": "Moradas", "significado": "Simbolizan admiración, respeto, lealtad y amor profundo." },
+      { "color": "Azules", "significado": "Simbolizan lo inalcanzable, lo misterioso y lo imposible." }
+    ],
+    "image": "/img/rosa.jpg",
     "price": "$8.000"
   },
   {
     "id": "19",
-    "texto": "Es el símbolo universal del amor, la pasión y la belleza. Sin embargo, su significado varía profundamente según su color..",
-    "image": "/img/Rosa_XL.jpg",
+    "texto": "Es el símbolo universal del amor, la pasión y la belleza. Sin embargo, su significado varía profundamente según su color.",
+    "significadoColores": [
+      { "color": "Rojas", "significado": "Simbolizan amor profundo, pasión y romanticismo." },
+      { "color": "Rosadas", "significado": "Simbolizan gratitud, admiración, cariño y dulzura." },
+      { "color": "Blancas", "significado": "Simbolizan pureza, inocencia y nuevos comienzos." },
+      { "color": "Amarillas", "significado": "Simbolizan alegría, amistad y energía positiva." },
+      { "color": "Naranjas", "significado": "Simbolizan entusiasmo, éxito y fascinación." },
+      { "color": "Moradas", "significado": "Simbolizan admiración, respeto, lealtad y amor profundo." },
+      { "color": "Azules", "significado": "Simbolizan lo inalcanzable, lo misterioso y lo imposible." }
+    ],
+    "image": "/img/rosa_XL.jpg",
     "price": "$10.000"
   },
   {
     "id": "20",
     "texto": "Simboliza principalmente el amor perfecto, profundo y sincero. Sin embargo, su significado varía profundamente según su color.",
-    "image": "/img/Tulipán.jpg",
+    "significadoColores": [
+      { "color": "Rojos", "significado": "Simbolizan amor profundo, pasión y romance incondicional." },
+      { "color": "Rosados", "significado": "Simbolizan afecto, ternura y buenos deseos." },
+      { "color": "Blancos", "significado": "Simbolizan pureza, inocencia, respeto y calma." },
+      { "color": "Amarillos", "significado": "Simbolizan amistad, alegría, felicidad y transmiten energía positiva." },
+      { "color": "Naranjos", "significado": "Simbolizan energía, unión y fascinación compartida." },
+      { "color": "Morados", "significado": "Simbolizan lealtad, éxito, orgullo y apoyo incondicional." },
+      { "color": "Azules", "significado": "Simbolizan paz, tranquilidad, lealtad y confianza." }
+    ],
+    "image": "/img/tulipan.jpg",
     "price": "$6.000"
+  },
+  {
+    "id": "21",
+    "texto": "Simboliza la esperanza, la renovación y los nuevos comienzos..",
+    "image": "/img/lirio_de_lluvia_maceta.jpg",
+    "price": "$12.000"
   }
 ]

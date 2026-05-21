@@ -11,7 +11,7 @@ module.exports = defineConfig({
   pages: {
     index: {
       entry: 'src/main.js',
-      title: 'Catálogo Madre · Vinóloga',
+      title: 'Flores Eternamente Bellas',
     },
   },
   devServer: {
@@ -28,7 +28,7 @@ module.exports = defineConfig({
       const origin = publicSiteOrigin()
       const opts = args[0]
       opts.ogPageUrl = origin ? `${origin}/` : ''
-      opts.ogImageUrl = origin ? `${origin}/img/logo-vinologa.png` : ''
+      opts.ogImageUrl = origin ? `${origin}/img/logo_sin_fondo.png` : ''
       return args
     })
   },

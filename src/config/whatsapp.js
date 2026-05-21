@@ -1,34 +1,28 @@
-/** Solo dígitos: código de país + número (sin + ni espacios). Ej. Chile: 56912345678 */
-export const WHATSAPP_NUMBER_DIGITS = '56996450950'
-
 /**
- * WhatsApp catálogo / flores (sección sobre mí). Distinto al número principal de packs y pie de página.
- * Solo dígitos: código de país + número.
+ * WhatsApp del catálogo (tarjetas, footer y consultas).
+ * Solo dígitos: código de país + número. Ej. Chile: 56912345678
  */
 export const WHATSAPP_CATALOGO_DIGITS = '56964856456'
 
-/** Texto inicial del chat al abrir el enlace de catálogo (api.whatsapp.com). */
+/** Alias legacy — mismo número que el catálogo */
+export const WHATSAPP_NUMBER_DIGITS = WHATSAPP_CATALOGO_DIGITS
+
 const WHATSAPP_CATALOGO_PREFILL_TEXT =
-  'Hola! Vi tu link en el catálogo de Vinóloga y necesito información sobre las Flores eternamente bellas'
+  'Hola! Vi tu link en el catálogo de Flores Eternamente Bellas y me gustaría más información.'
 
-/**
- * URL pública del sitio (.env.development / .env.production).
- * Referencia literal a `process.env.VUE_APP_PUBLIC_SITE_URL` para que @vue/cli-service la sustituya.
- */
 const PUBLIC_SITE_FROM_ENV = process.env.VUE_APP_PUBLIC_SITE_URL || ''
-
-/**
- * Si el .env no llega al bundle en dev, el enlace a la foto no puede quedar vacío.
- * Cambia esto si despliegas en otro dominio (o define siempre VUE_APP_PUBLIC_SITE_URL).
- */
-const WHATSAPP_FALLBACK_SITE_ORIGIN = 'https://catalogomadre.netlify.app'
 
 function publicSiteUrlFromEnv() {
   return PUBLIC_SITE_FROM_ENV
 }
 
+function catalogoDigitsOnly() {
+  return String(WHATSAPP_CATALOGO_DIGITS || '').replace(/\D/g, '')
+}
+
+/** Mismo teléfono del catálogo en footer, ramos y accesorios */
 function digitsOnly() {
-  return WHATSAPP_NUMBER_DIGITS.replace(/\D/g, '')
+  return catalogoDigitsOnly()
 }
 
 function normalizeHttpsRoot(url) {
@@ -39,12 +33,8 @@ function normalizeHttpsRoot(url) {
   return u.replace(/^http:\/\//i, 'https://')
 }
 
-/**
- * Origen público para enlaces en WhatsApp: env, luego fallback fijo, luego origin (no localhost).
- */
 function getShareBaseOrigin() {
   let origin = normalizeHttpsRoot(publicSiteUrlFromEnv())
-  if (!origin) origin = normalizeHttpsRoot(WHATSAPP_FALLBACK_SITE_ORIGIN)
   if (origin) return origin
 
   if (typeof window !== 'undefined' && window.location?.origin) {
@@ -56,45 +46,7 @@ function getShareBaseOrigin() {
   return ''
 }
 
-const OG_PAGE_SUFFIX = '.html'
-
-/**
- * Nombre de archivo en `public/`: `og-{id en minúsculas}.html` (Netlify/Linux distinguen mayúsculas; si no coincide, cae el SPA y WhatsApp muestra el og:image del index: logo).
- */
-function packOgPagePath(packId) {
-  const id = typeof packId === 'string' ? packId.trim() : ''
-  if (!id) return ''
-  return `og-${id.toLowerCase()}${OG_PAGE_SUFFIX}`
-}
-
-/**
- * Slug de página OG solo para ids simbólicos (legacy).
- * Los ids numéricos del catálogo actual no se mapean aquí: WhatsApp usa la URL directa de `image`
- * del JSON y así la vista prevía coincide con cada vino.
- */
-const OG_SLUG_BY_PACK_ID = {
-  alchemysta: 'alchemysta',
-  'mujer-andina': 'mujer-andina',
-  rose: 'rose',
-  owm: 'owm',
-  algorta: 'algorta',
-  rockstar: 'tripack-rockstars',
-  'tripack-rockstars': 'tripack-rockstars',
-  sensaciones: 'sensaciones',
-  maiporigen: 'maiporigen',
-  'algorta-grand-reserve': 'algorta-grand-reserve',
-  coleccionalgorta: 'coleccionalgorta',
-  innovacion: 'innovacion',
-}
-
-function ogSlugFromPackId(packId) {
-  const id = typeof packId === 'string' ? packId.trim().toLowerCase() : ''
-  if (!id) return ''
-  return OG_SLUG_BY_PACK_ID[id] || ''
-}
-
-/** Fuerza recarga de preview en WhatsApp (caché agresiva). */
-const WHATSAPP_PREVIEW_CACHE_BUSTER = 'v=7'
+const WHATSAPP_PREVIEW_CACHE_BUSTER = 'v=1'
 
 function withCacheBuster(url) {
   const u = String(url || '').trim()
@@ -103,23 +55,6 @@ function withCacheBuster(url) {
   return u.includes('?') ? `${u}&${WHATSAPP_PREVIEW_CACHE_BUSTER}` : `${u}?${WHATSAPP_PREVIEW_CACHE_BUSTER}`
 }
 
-/**
- * URL para vista previa en WhatsApp: HTML con og:image (no el .jpg directo).
- */
-function resolvePackPreviewUrlForWhatsApp(packId, imagePath) {
-  const base = getShareBaseOrigin()
-  if (!base) return resolvePackImageUrlForWhatsApp(imagePath)
-  const slug = ogSlugFromPackId(packId)
-  if (slug) {
-    const page = packOgPagePath(slug)
-    return withCacheBuster(`${base}/${page}`)
-  }
-  return withCacheBuster(resolvePackImageUrlForWhatsApp(imagePath))
-}
-
-/**
- * URL absoluta de un asset en `public/` para compartir por WhatsApp (solo HTTPS y dominio público).
- */
 function resolvePackImageUrlForWhatsApp(assetPath) {
   if (!assetPath || typeof assetPath !== 'string') return ''
   const trimmed = assetPath.trim()
@@ -132,16 +67,17 @@ function resolvePackImageUrlForWhatsApp(assetPath) {
   return `${base}${path}`
 }
 
-/** Precio sin símbolo $ (en WhatsApp el $ puede truncar el resto del mensaje prefijado). */
 function priceForWhatsAppMessage(price) {
   if (!price || typeof price !== 'string') return ''
   return price.trim().replace(/\$/g, '').replace(/\s+/g, ' ').trim()
 }
 
-/**
- * URL absoluta HTTPS de un asset en `public/` (p. ej. `/img/pack.jpg`).
- * En el navegador usa `location.origin`; sin `window` usa env.
- */
+const WHATSAPP_INTRO_BY_TIPO = {
+  flor: 'Quiero esta flor',
+  ramo: 'Quiero este ramo',
+  accesorio: 'Quiero este accesorio',
+}
+
 export function resolvePublicAssetUrl(assetPath) {
   if (!assetPath || typeof assetPath !== 'string') return ''
   const trimmed = assetPath.trim()
@@ -166,28 +102,17 @@ export function getWhatsAppUrl() {
   return `https://wa.me/${digits}`
 }
 
-/**
- * WhatsApp desde el pie: un solo texto (api.whatsapp.com evita rarezas con wa.me + borradores viejos).
- */
 export function getWhatsAppFooterUrl() {
   const digits = digitsOnly()
   if (!digits) return '#'
-  const text = 'Hola Vinóloga, quiero hacer un pedido de vinos...'
+  const text = 'Hola! Quiero hacer un pedido desde el catálogo de Flores Eternamente Bellas...'
   return `https://api.whatsapp.com/send?phone=${digits}&text=${encodeURIComponent(text)}`
-}
-
-function catalogoDigitsOnly() {
-  return String(WHATSAPP_CATALOGO_DIGITS || '').replace(/\D/g, '')
 }
 
 export function isWhatsAppCatalogoConfigured() {
   return catalogoDigitsOnly().length > 0
 }
 
-/**
- * WhatsApp desde «Solicita tu catálogo de flores, aquí»: número {@link WHATSAPP_CATALOGO_DIGITS},
- * texto prefijado y enlace a página OG estática (vista previa con imagen del poema / flores).
- */
 export function getWhatsAppCatalogoUrl() {
   const digits = catalogoDigitsOnly()
   if (!digits) return '#'
@@ -200,11 +125,6 @@ export function getWhatsAppCatalogoUrl() {
   return `https://api.whatsapp.com/send?phone=${digits}&text=${encodeURIComponent(body)}`
 }
 
-/**
- * WhatsApp para flores individuales (modal de "Sobre mí"):
- * mensaje "Quiero esta flor" + nombre + precio + imagen pública.
- * @param {{ nombre?: string, precio?: string, src?: string }} flower
- */
 export function getWhatsAppFlowerUrl(flower) {
   const digits = catalogoDigitsOnly()
   if (!digits) return '#'
@@ -229,27 +149,26 @@ export function getWhatsAppFlowerUrl(flower) {
 }
 
 /**
- * Enlace api.whatsapp.com: «¿Vamos con este vino?» + datos + vista previa (imagen o página OG) + precio.
- * @param {{ title?: string, valle?: string, price?: string, precioEspecial?: string, image?: string, packId?: string }} pack
+ * Ramos y accesorios: mensaje según tipo + imagen pública del JSON.
  */
 export function getWhatsAppPackUrl(pack) {
   const digits = digitsOnly()
   if (!digits) return '#'
 
   const title = typeof pack?.title === 'string' ? pack.title.trim() : ''
-  const valle = typeof pack?.valle === 'string' ? pack.valle.trim() : ''
+  const tipo = typeof pack?.catalogoTipo === 'string' ? pack.catalogoTipo.trim() : 'ramo'
   const price = typeof pack?.price === 'string' ? pack.price.trim() : ''
   const precioEspecial =
     typeof pack?.precioEspecial === 'string' ? pack.precioEspecial.trim() : ''
-  const previewUrl = resolvePackPreviewUrlForWhatsApp(pack?.packId, pack?.image || '')
+  const imageUrl = resolvePackImageUrlForWhatsApp(pack?.image || '')
 
-  const parts = ['Quiero este vino']
+  const intro = WHATSAPP_INTRO_BY_TIPO[tipo] || 'Quiero consultar por'
+  const parts = [intro]
   if (title) parts.push(title)
-  if (valle) parts.push(valle)
   parts.push('')
 
-  if (previewUrl && /^https:\/\//i.test(previewUrl)) {
-    parts.push(previewUrl)
+  if (imageUrl && /^https:\/\//i.test(imageUrl)) {
+    parts.unshift(withCacheBuster(imageUrl))
     parts.push('')
   }
 
@@ -260,6 +179,26 @@ export function getWhatsAppPackUrl(pack) {
     if (refTxt) parts.push(`Precio referencia (CLP): ${refTxt}`)
   } else if (refTxt) {
     parts.push(`Precio (CLP): ${refTxt}`)
+  }
+
+  const text = parts.join('\n').trimEnd()
+  return `https://api.whatsapp.com/send?phone=${digits}&text=${encodeURIComponent(text)}`
+}
+
+export function getWhatsAppConsultaUrl(item) {
+  const digits = catalogoDigitsOnly()
+  if (!digits) return '#'
+
+  const nombre = typeof item?.nombre === 'string' ? item.nombre.trim() : ''
+  const imageUrl = resolvePackImageUrlForWhatsApp(item?.src || '')
+
+  const parts = []
+  if (nombre) parts.push(nombre)
+  parts.push('Consulta')
+
+  if (imageUrl && /^https:\/\//i.test(imageUrl)) {
+    parts.unshift(withCacheBuster(imageUrl))
+    parts.push('')
   }
 
   const text = parts.join('\n').trimEnd()

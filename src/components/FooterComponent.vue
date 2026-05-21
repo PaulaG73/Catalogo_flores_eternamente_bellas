@@ -1,6 +1,6 @@
 <template>
-    <footer class="footer py-2 py-md-4 mt-auto footer-vino">
-      <div class="container d-flex align-items-center flex-wrap gap-2">
+    <footer class="footer py-2 py-md-4 mt-auto footer-feb">
+      <div class="container footer-layout d-flex align-items-center flex-wrap gap-2">
   
         <!-- Botón volver al inicio (izquierda, ancho fijo) -->
         <div class="footer-side">
@@ -8,7 +8,7 @@
             <button
               type="button"
               class="footer-home-btn footer-action-btn"
-              aria-label="Volver arriba a la barra de navegación"
+              aria-label="Volver al inicio, ir a la barra de navegación"
               @click="irAlInicio"
             >
               <svg
@@ -25,7 +25,7 @@
                 />
               </svg>
             </button>
-            <span class="footer-home-tooltip" role="tooltip" aria-hidden="true">Volver arriba</span>
+            <span class="footer-home-tooltip" role="tooltip" aria-hidden="true">Volver al inicio</span>
           </span>
         </div>
   
@@ -42,7 +42,7 @@
                 rel="noopener noreferrer"
                 :aria-disabled="!whatsappReady"
                 :class="{ 'opacity-50': !whatsappReady }"
-                :title="whatsappReady ? undefined : 'Configura WHATSAPP_NUMBER_DIGITS en src/config/whatsapp.js'"
+                :title="whatsappReady ? undefined : 'Configura WHATSAPP_CATALOGO_DIGITS en src/config/whatsapp.js'"
                 aria-label="Haz un pedido a tu medida por WhatsApp"
               >
                 <svg class="footer-action-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -53,11 +53,26 @@
             </span>
   
           </div>
-          <p class="mb-0 footer-copy">Derechos reservados &copy; 2026 Paula Gajardo Schmidlin</p>
+          <p class="mb-0 footer-copy">
+            <span class="footer-copy-lead">Derechos reservados &copy; 2026</span>
+            <span class="footer-copy-brand">Flores Eternamente Bellas</span>
+          </p>
         </div>
   
-        <!-- Espacio equilibrante (derecha, mismo ancho que izquierda) -->
-        <div class="footer-side"></div>
+        <!-- Logo marca (derecha) -->
+        <div class="footer-side footer-side--logo d-flex justify-content-end">
+          <div class="footer-logo-shell">
+            <img
+              class="footer-logo-img"
+              src="/img/Logo.JPG"
+              alt="Logo Flores Eternamente Bellas"
+              width="72"
+              height="72"
+              loading="lazy"
+              decoding="async"
+            >
+          </div>
+        </div>
   
       </div>
     </footer>
@@ -90,8 +105,8 @@
   </script>
   
   <style scoped>
-  .footer-vino {
-    background-color: var(--vin-superficie-oscura) !important;
+  .footer-feb {
+    background-color: var(--feb-superficie-oscura) !important;
     border-top: none !important;
     box-shadow: none;
   }
@@ -106,9 +121,9 @@
     padding: 0;
     border: none;
     border-radius: 50%;
-    background-color: var(--vin-btn-scroll-bg);
-    box-shadow: var(--vin-btn-scroll-shadow);
-    color: var(--vin-btn-scroll-color);
+    background-color: var(--feb-btn-scroll-bg);
+    box-shadow: var(--feb-btn-scroll-shadow);
+    color: var(--feb-btn-scroll-color);
     transition:
       background-color 0.2s ease,
       transform 0.15s ease,
@@ -121,9 +136,9 @@
   }
 
   .footer-home-btn:hover {
-    background-color: var(--vin-btn-scroll-bg-hover);
-    box-shadow: var(--vin-btn-scroll-shadow-hover);
-    color: var(--vin-btn-scroll-color);
+    background-color: var(--feb-btn-scroll-bg-hover);
+    box-shadow: var(--feb-btn-scroll-shadow-hover);
+    color: var(--feb-btn-scroll-color);
   }
 
   .footer-home-btn:active {
@@ -131,7 +146,7 @@
   }
 
   .footer-home-btn:focus-visible {
-    outline: 2px solid rgba(var(--vin-avatar-fondo-rgb), 0.85);
+    outline: 2px solid rgba(var(--feb-avatar-fondo-rgb), 0.85);
     outline-offset: 3px;
   }
   
@@ -148,7 +163,7 @@
     translate: -6px -50%;
     padding: 0.45rem 0.85rem;
     background: #fff;
-    color: var(--vin-profundo, #3a0f18);
+    color: var(--feb-profundo, #3a0f18);
     font-size: 0.8125rem;
     font-weight: 700;
     line-height: 1.25;
@@ -216,24 +231,107 @@
     flex-shrink: 0;
   }
   
+  .footer-layout {
+    width: 100%;
+    min-width: 0;
+  }
+
   .footer-copy {
-    font-size: 0.85rem;
+    font-size: clamp(0.68rem, 2.4vw, 0.85rem);
     text-align: center;
+    line-height: 1.35;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
+    padding-inline: 0.25rem;
+  }
+
+  .footer-copy-lead::after {
+    content: ' ';
+  }
+
+  .footer-layout > .flex-grow-1 {
+    min-width: 0;
+    flex: 1 1 12rem;
   }
   
   .footer-side {
-    width: 2rem;
+    flex: 0 0 auto;
     flex-shrink: 0;
   }
 
   .footer-side:first-child {
-    width: auto;
     min-width: clamp(2.5rem, 8vw, 2.85rem);
   }
-  
-  @media (max-width: 400px) {
-    .footer-side:last-child {
-      display: none;
+
+  .footer-side--logo {
+    min-width: clamp(2.5rem, 8vw, 2.85rem);
+    justify-content: flex-end;
+  }
+
+  .footer-logo-shell {
+    --footer-logo-size: clamp(52px, 11vw, 72px);
+    width: var(--footer-logo-size);
+    height: var(--footer-logo-size);
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    box-shadow:
+      0 0 0 2px rgba(255, 255, 255, 0.14),
+      0 4px 14px rgba(0, 0, 0, 0.35);
+  }
+
+  .footer-logo-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  @media (max-width: 575.98px) {
+    .footer-layout {
+      gap: 0.4rem 0.35rem;
+      padding-block: 0.15rem;
+    }
+
+    .footer-copy {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+      font-size: clamp(0.62rem, 2.85vw, 0.78rem);
+    }
+
+    .footer-copy-lead::after {
+      content: none;
+    }
+
+    .footer-copy-brand {
+      display: block;
+      white-space: nowrap;
+      font-size: clamp(0.64rem, 2.9vw, 0.8rem);
+      letter-spacing: 0.02em;
+    }
+
+    .footer-logo-shell {
+      --footer-logo-size: clamp(44px, 12vw, 56px);
+    }
+
+    .footer-home-btn {
+      width: 2.35rem;
+      height: 2.35rem;
+    }
+  }
+
+  @media (max-width: 359.98px) {
+    .footer-copy {
+      font-size: 0.58rem;
+      letter-spacing: 0.01em;
+    }
+
+    .footer-logo-shell {
+      --footer-logo-size: 40px;
     }
   }
   </style>

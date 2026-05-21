@@ -27,26 +27,17 @@
         </div>
       </div>
       <div class="sobre-mi-texto">
-        <p class="mb-1 mb-md-2">
-          Es tiempo de <span class="sobre-mi-vino-mayus">APRENDER</span>, es tiempo de
-          <span class="sobre-mi-vino-mayus">COMPARTIR</span>, es tiempo de
-          <span class="sobre-mi-vino-mayus">DISFRUTAR</span>.
-        </p>
         <p class="mb-0">
-          Bienvenido al Mundo de Vinóloga...el mundo de los "<span class="sobre-mi-vino-mayus">VINOS CON CUENTO</span>"...
+          Bienvenid@s a mi pequeño <span class="sobre-mi-destacado">jardín</span> de
+          <span class="sobre-mi-destacado sobre-mi-destacado--mayus">flores eternas</span>, un espacio lleno de
+          <span class="sobre-mi-destacado">creaciones</span> hechas con <span class="sobre-mi-destacado">amor</span> y
+          <span class="sobre-mi-destacado">dedicación</span>
         </p>
       </div>
     </div>
-    <div class="container sobre-mi-actions text-center mt-2">
-      <a href="#" class="btn-top btn-top--scroll-circle" title="Volver al inicio" aria-label="Volver al inicio">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
-          <path d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 0 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
-        </svg>
-      </a>
-    </div>
   </section>
 
-  <section id="flores" class="home-section home-section--slate home-section--madre pt-4 pt-md-5 pb-2 pb-md-3">
+  <section id="flores" class="home-section home-section--slate home-section--marca pt-4 pt-md-5 pb-2 pb-md-3">
     <div class="container text-center packs-header">
       <h3 class="mb-4 fw-bold">Catálogo de Flores</h3>
     </div>
@@ -83,9 +74,12 @@
             class="packs-carousel-slide"
           >
             <CardComponent
-              :wine-id="flor.id"
+              :item-id="flor.id"
+              catalogo-tipo="flor"
               title=""
               :descripcion="flor.texto"
+              :significado-colores="flor.significadoColores || []"
+              :boton-colores="Boolean(flor.botonColores)"
               :image="catalogoImagePath(flor)"
               :price="flor.price"
               :precio-especial="flor.precioEspecial"
@@ -108,11 +102,12 @@
     </div>
     <div class="container packs-scroll-to-flores text-end mt-2">
       <a
-        href="#sobre-mi"
+        href="#navbar-principal"
         class="packs-scroll-to-flores-link d-inline-flex align-items-center text-decoration-none"
-        title="Volver a las flores"
+        title="Volver al inicio"
+        aria-label="Volver al inicio, ir a la barra de navegación"
       >
-        <span class="packs-scroll-to-flores-text">Volver arriba</span>
+        <span class="packs-scroll-to-flores-text">Volver al inicio</span>
         <span class="btn-top btn-top--scroll-circle flex-shrink-0" aria-hidden="true">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
             <path d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 0 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
@@ -159,7 +154,8 @@
             class="packs-carousel-slide"
           >
             <CardComponent
-              :wine-id="ramo.id"
+              :item-id="ramo.id"
+              catalogo-tipo="ramo"
               :title="catalogoNombre(ramo)"
               title-align="center"
               :descripcion="ramo.texto"
@@ -189,7 +185,7 @@
         class="packs-scroll-to-flores-link d-inline-flex align-items-center text-decoration-none"
         title="Ir al catálogo de flores"
       >
-        <span class="packs-scroll-to-flores-text">Ver flores</span>
+        <span class="packs-scroll-to-flores-text">Ver catálogo de flores</span>
         <span class="btn-top btn-top--scroll-circle flex-shrink-0" aria-hidden="true">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
             <path d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 0 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
@@ -199,7 +195,7 @@
     </div>
   </section>
 
-  <section id="accesorios" class="home-section home-section--slate home-section--madre pt-4 pt-md-5 pb-2 pb-md-3">
+  <section id="accesorios" class="home-section home-section--slate home-section--marca pt-4 pt-md-5 pb-2 pb-md-3">
     <div class="container text-center packs-header">
       <h3 class="mb-4 fw-bold">Accesorios</h3>
     </div>
@@ -236,12 +232,15 @@
             class="packs-carousel-slide"
           >
             <CardComponent
-              :wine-id="accesorio.id"
+              :item-id="accesorio.id"
+              catalogo-tipo="accesorio"
               :title="catalogoNombre(accesorio)"
               title-align="center"
               :descripcion="accesorio.texto"
               :image="catalogoImagePath(accesorio)"
-              :price="accesorio.price"
+              :price="accesorio.price || ''"
+              :precios="accesorio.precios || []"
+              :whatsapp-consulta="Boolean(accesorio.whatsappConsulta)"
               :precio-especial="accesorio.precioEspecial"
               :agotado="Boolean(accesorio.agotado)"
               :ultima-unidad="Boolean(accesorio.ultimaUnidad)"
@@ -266,7 +265,7 @@
         class="packs-scroll-to-flores-link d-inline-flex align-items-center text-decoration-none"
         title="Ir a ideas de ramos"
       >
-        <span class="packs-scroll-to-flores-text">Ver ramos</span>
+        <span class="packs-scroll-to-flores-text">Ver ideas de ramos</span>
         <span class="btn-top btn-top--scroll-circle flex-shrink-0" aria-hidden="true">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
             <path d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 0 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
@@ -299,19 +298,21 @@ import CardComponent from '../components/CardComponent.vue'
 import catalogoFlores from '../data/catalogoFlores.json'
 import catalogoRamos from '../data/catalogoRamos.json'
 import catalogoAccesorios from '../data/catalogoAccesorios.json'
-import { catalogoImagePath, catalogoNombre } from '../utils/catalogo'
+import { catalogoImagePath, catalogoNombre, ordenarCatalogo } from '../utils/catalogo'
 
 const sobreMiFotoSrc = '/img/Avatar.jpg'
-const sobreMiLogoSrc = '/img/Logo.JPG'
+const sobreMiLogoSrc = '/img/logo_sin_fondo.png'
 
 /** Dos series iguales para bucle de scroll sin salto visible. */
 function catalogoLoop(items) {
   return items.length > 1 ? [...items, ...items] : items
 }
 
-const floresLoop = computed(() => catalogoLoop(catalogoFlores))
-const ramosLoop = computed(() => catalogoLoop(catalogoRamos))
-const accesoriosLoop = computed(() => catalogoLoop(catalogoAccesorios))
+const floresLoop = computed(() => catalogoLoop(ordenarCatalogo(catalogoFlores)))
+const ramosLoop = computed(() => catalogoLoop(ordenarCatalogo(catalogoRamos)))
+const accesoriosLoop = computed(() =>
+  catalogoLoop(ordenarCatalogo(catalogoAccesorios, { pinchesPrimero: true })),
+)
 
 const floresCarouselRef = ref(null)
 const ramosCarouselRef = ref(null)
@@ -351,6 +352,14 @@ function syncAllCarouselsInlineSize() {
   for (const carouselRef of catalogoCarouselRefs) {
     syncCarouselInlineSize(carouselRef)
   }
+}
+
+/** Columnas visibles del carrusel según ancho de pantalla */
+function getCarouselVisibleCols() {
+  if (typeof window === 'undefined') return 1
+  if (window.matchMedia('(min-width: 992px)').matches) return 3
+  if (window.matchMedia('(min-width: 576px)').matches) return 2
+  return 1
 }
 
 function scheduleSyncCarouselInlineSize() {
@@ -409,8 +418,8 @@ function createCarouselControls(carouselRef, pausedRef, timers) {
     if (inner && firstSlide) {
       const gapPx = parseFloat(getComputedStyle(inner).gap) || 0
       const slideW = firstSlide.offsetWidth
-      const threeCols = window.matchMedia('(min-width: 768px)').matches
-      if (!threeCols) delta = (slideW + gapPx) * direction
+      const cols = getCarouselVisibleCols()
+      if (cols < 3) delta = (slideW + gapPx) * direction
     }
 
     el.scrollBy({
@@ -551,10 +560,10 @@ onUnmounted(() => {
 .home-section,
 .home-section--ink,
 .home-section--slate,
-.home-section--madre {
-  color: var(--vin-texto-sobre-logo);
-  background-color: var(--vin-logo-fondo-color);
-  background-image: var(--vin-logo-fondo-gradient);
+.home-section--marca {
+  color: var(--feb-texto-sobre-logo);
+  background-color: var(--feb-logo-fondo-color);
+  background-image: var(--feb-logo-fondo-gradient);
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -575,7 +584,7 @@ onUnmounted(() => {
 .contacto-wrap {
   margin: 0;
   padding: 0;
-  background-color: var(--vin-superficie-oscura);
+  background-color: var(--feb-superficie-oscura);
 }
 
 .prefooter-pitch {
@@ -593,15 +602,15 @@ onUnmounted(() => {
   column-gap: 0.25rem;
 }
 
-/* Mismo fondo y ribete que la navbar (.bg-vin-negro + .nav-vino) */
+/* Mismo fondo y ribete que la navbar (.bg-feb-marca + .nav-feb) */
 .prefooter-pitch--dark {
   width: 100%;
   margin-inline: 0;
-  background-color: var(--vin-negro-marca);
+  background-color: var(--feb-negro-marca);
   background-image: none;
-  border-top: 1px solid var(--vin-borde-sutil);
+  border-top: 1px solid var(--feb-borde-sutil);
   border-bottom: none;
-  box-shadow: 0 1px 0 0 rgba(var(--vin-pastel-polvo-rgb), 0.45);
+  box-shadow: 0 1px 0 0 rgba(var(--feb-pastel-polvo-rgb), 0.45);
 }
 
 .prefooter-line {
@@ -609,11 +618,11 @@ onUnmounted(() => {
   line-height: 1.55;
   font-weight: 500;
   letter-spacing: 0.025em;
-  color: var(--vin-texto-claro);
+  color: var(--feb-texto-claro);
 }
 
 .prefooter-sep {
-  color: var(--vin-btn-scroll-bg);
+  color: var(--feb-btn-scroll-bg);
   text-shadow: none;
   font-weight: 800;
   font-size: 1.65em;
@@ -643,41 +652,41 @@ onUnmounted(() => {
   display: inline-block;
   padding: 0.2em 0.85em;
   margin-bottom: 0.4rem;
-  color: var(--vin-titulo-seccion-color);
+  color: var(--feb-titulo-seccion-color);
   text-shadow: none;
 }
 
 .home-section h3::selection {
-  background: rgba(var(--vin-pastel-polvo-rgb), 0.85);
-  color: var(--vin-profundo);
+  background: rgba(var(--feb-pastel-polvo-rgb), 0.85);
+  color: var(--feb-profundo);
 }
 
-#flores .packs-scroll-to-flores-link {
+.packs-scroll-to-flores-link {
   gap: clamp(0.45rem, 2vw, 0.85rem);
-  color: var(--vin-texto-sobre-logo);
+  color: var(--feb-texto-sobre-logo);
   font-weight: 600;
   font-size: clamp(0.96rem, 2.4vw, 1.12rem);
   letter-spacing: 0.01em;
   text-shadow: none;
 }
 
-#flores .packs-scroll-to-flores {
+.packs-scroll-to-flores {
   display: flex;
   justify-content: flex-end;
 }
 
-#flores .packs-scroll-to-flores-link:hover {
-  color: var(--vin-acento);
+.packs-scroll-to-flores-link:hover {
+  color: var(--feb-acento);
 }
 
-#flores .packs-scroll-to-flores-link:hover .packs-scroll-to-flores-text,
-#flores .packs-scroll-to-flores-link:focus-visible .packs-scroll-to-flores-text {
+.packs-scroll-to-flores-link:hover .packs-scroll-to-flores-text,
+.packs-scroll-to-flores-link:focus-visible .packs-scroll-to-flores-text {
   text-decoration: underline;
   text-underline-offset: 0.15em;
 }
 
-#flores .packs-scroll-to-flores-link:focus-visible {
-  outline: 2px solid rgba(var(--vin-rosa-sorbete-rgb), 0.6);
+.packs-scroll-to-flores-link:focus-visible {
+  outline: 2px solid rgba(var(--feb-rosa-sorbete-rgb), 0.6);
   outline-offset: 4px;
   border-radius: 0.35rem;
 }
@@ -692,6 +701,7 @@ onUnmounted(() => {
   min-height: clamp(22rem, 52vh, 36rem);
 }
 
+/* Marca de agua: cubre toda la sección */
 #sobre-mi .sobre-mi-watermark {
   position: absolute;
   inset: 0;
@@ -704,19 +714,18 @@ onUnmounted(() => {
   transform: scale(1.03);
   transform-origin: center;
   pointer-events: none;
-  opacity: 0.22;
-  mix-blend-mode: multiply;
-  filter: contrast(1.12) saturate(1.05);
+  opacity: 0.2;
   user-select: none;
 }
 
-#sobre-mi .container.sobre-mi,
-#sobre-mi .sobre-mi-actions {
+#sobre-mi .container.sobre-mi {
   position: relative;
   z-index: 1;
   max-width: min(100%, 52rem);
   margin-inline: auto;
   background: transparent;
+  /* Centrado un poco más bajo dentro del círculo del logo */
+  transform: translateY(clamp(0.3rem, 1vh, 0.5rem));
 }
 
 #sobre-mi .sobre-mi-foto-shell {
@@ -754,12 +763,48 @@ onUnmounted(() => {
   }
 }
 
+/*
+ * Solo iPad Mini (744px) e iPad Air (820px): avatar + texto dentro del logo,
+ * con espacio entre ambos. Párrafo normal, sin saltos forzados.
+ */
+@media (min-width: 744px) and (max-width: 820px) {
+  #sobre-mi .container.sobre-mi {
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: clamp(0.65rem, 3vw, 1rem) !important;
+    max-width: min(24rem, 88vw, 74vh);
+    padding-inline: 0.5rem;
+  }
+
+  /* Alto similar al bloque de texto (~4–5 líneas); tamaño explícito (auto lo ocultaba) */
+  #sobre-mi .sobre-mi-foto-shell {
+    --foto-tam: clamp(8.5rem, 34vw, 10.25rem);
+    width: var(--foto-tam);
+    height: var(--foto-tam);
+    margin-inline: 0;
+    flex-shrink: 0;
+  }
+
+  #sobre-mi .sobre-mi-texto {
+    display: flex;
+    align-items: center;
+    flex: 0 1 auto;
+    min-width: 0;
+    max-width: 13.5rem;
+    margin-inline: 0;
+    text-align: start;
+  }
+}
+
 .sobre-mi-foto__img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: 50% 42%;
+  transform: scale(1.1);
+  transform-origin: 50% 42%;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -771,9 +816,7 @@ onUnmounted(() => {
 
   #sobre-mi .sobre-mi-watermark {
     transform: none;
-    mix-blend-mode: multiply;
-    opacity: 0.16;
-    filter: none;
+    opacity: 0.14;
   }
 }
 
@@ -786,7 +829,7 @@ onUnmounted(() => {
   line-height: 1.78;
   font-size: clamp(0.96rem, 2vw, 1.16rem);
   font-weight: 500;
-  color: var(--vin-texto-sobre-logo);
+  color: var(--feb-texto-sobre-logo);
   text-shadow: none;
   background: transparent;
 }
@@ -795,15 +838,20 @@ onUnmounted(() => {
   background: transparent;
 }
 
-#sobre-mi .sobre-mi-vino-mayus {
-  color: var(--vin-acento);
+#sobre-mi .sobre-mi-destacado {
+  color: var(--feb-acento);
   font-weight: 800;
   letter-spacing: 0.045em;
   text-shadow: none;
 }
 
+#sobre-mi .sobre-mi-destacado--mayus {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
 .highlight {
-  color: var(--vin-acento);
+  color: var(--feb-acento);
   font-style: italic;
   font-weight: bold;
 }
@@ -815,13 +863,13 @@ onUnmounted(() => {
 
 @keyframes colorPulse {
   0% {
-    color: var(--vin-texto-sobre-logo-muted);
+    color: var(--feb-texto-sobre-logo-muted);
   }
   50% {
-    color: var(--vin-acento);
+    color: var(--feb-acento);
   }
   100% {
-    color: var(--vin-texto-sobre-logo-muted);
+    color: var(--feb-texto-sobre-logo-muted);
   }
 }
 
@@ -838,9 +886,9 @@ onUnmounted(() => {
   padding: 0;
   border: none;
   border-radius: 50%;
-  background-color: var(--vin-btn-scroll-bg);
-  box-shadow: var(--vin-btn-scroll-shadow);
-  color: var(--vin-btn-scroll-color) !important;
+  background-color: var(--feb-btn-scroll-bg);
+  box-shadow: var(--feb-btn-scroll-shadow);
+  color: var(--feb-btn-scroll-color) !important;
   text-decoration: none;
   cursor: pointer;
   transition:
@@ -850,9 +898,9 @@ onUnmounted(() => {
 }
 
 .btn-top--scroll-circle:hover {
-  background-color: var(--vin-btn-scroll-bg-hover);
-  box-shadow: var(--vin-btn-scroll-shadow-hover);
-  color: var(--vin-btn-scroll-color) !important;
+  background-color: var(--feb-btn-scroll-bg-hover);
+  box-shadow: var(--feb-btn-scroll-shadow-hover);
+  color: var(--feb-btn-scroll-color) !important;
 }
 
 .btn-top--scroll-circle:active {
@@ -860,7 +908,7 @@ onUnmounted(() => {
 }
 
 .btn-top--scroll-circle:focus-visible {
-  outline: 2px solid rgba(var(--vin-avatar-fondo-rgb), 0.85);
+  outline: 2px solid rgba(var(--feb-avatar-fondo-rgb), 0.85);
   outline-offset: 3px;
 }
 
@@ -883,9 +931,9 @@ onUnmounted(() => {
   padding: 0;
   border: none;
   border-radius: 50%;
-  background-color: var(--vin-btn-scroll-bg);
-  color: var(--vin-btn-scroll-color);
-  box-shadow: var(--vin-btn-scroll-shadow);
+  background-color: var(--feb-btn-scroll-bg);
+  color: var(--feb-btn-scroll-color);
+  box-shadow: var(--feb-btn-scroll-shadow);
   cursor: pointer;
   transition:
     background-color 0.2s ease,
@@ -894,8 +942,8 @@ onUnmounted(() => {
 }
 
 .packs-carousel-arrow:hover {
-  background-color: var(--vin-btn-scroll-bg-hover);
-  box-shadow: var(--vin-btn-scroll-shadow-hover);
+  background-color: var(--feb-btn-scroll-bg-hover);
+  box-shadow: var(--feb-btn-scroll-shadow-hover);
 }
 
 .packs-carousel-arrow:active {
@@ -903,23 +951,23 @@ onUnmounted(() => {
 }
 
 .packs-carousel-arrow:focus-visible {
-  outline: 2px solid rgba(var(--vin-avatar-fondo-rgb), 0.85);
+  outline: 2px solid rgba(var(--feb-avatar-fondo-rgb), 0.85);
   outline-offset: 3px;
 }
 
 .packs-carousel-wrap {
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: visible;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
-  scrollbar-color: rgba(var(--vin-rosa-ballet-rgb), 0.42) transparent;
+  scrollbar-color: rgba(var(--feb-rosa-ballet-rgb), 0.42) transparent;
   padding-block: 0.25rem 0.75rem;
   outline: none;
 }
 
 .packs-carousel-wrap:focus-visible {
-  box-shadow: 0 0 0 2px rgba(var(--vin-acento-rgb), 0.35);
+  box-shadow: 0 0 0 2px rgba(var(--feb-acento-rgb), 0.35);
   border-radius: 0.35rem;
 }
 
@@ -930,8 +978,8 @@ onUnmounted(() => {
 .packs-carousel-wrap::-webkit-scrollbar-thumb {
   background: linear-gradient(
     180deg,
-    rgba(var(--vin-pastel-nube-rgb), 0.65),
-    rgba(var(--vin-rosa-sorbete-rgb), 0.55)
+    rgba(var(--feb-pastel-nube-rgb), 0.65),
+    rgba(var(--feb-rosa-sorbete-rgb), 0.55)
   );
   border-radius: 4px;
 }
@@ -947,7 +995,7 @@ onUnmounted(() => {
 }
 
 /*
- * Siempre tarjetas enteras en el viewport: 1 columna en móvil, 3 en md+.
+ * Tarjetas enteras en el viewport: 1 móvil · 2 tablet · 3 escritorio.
  * --packs-carousel-iw = ancho del área scroll (ResizeObserver).
  */
 .packs-carousel-slide {
@@ -957,20 +1005,115 @@ onUnmounted(() => {
   scroll-snap-stop: normal;
   min-height: 0;
   width: var(--packs-carousel-iw, 100%);
+  max-width: 100%;
   display: flex;
   flex-direction: column;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 576px) {
+  .packs-carousel-slide {
+    width: calc((var(--packs-carousel-iw, 100%) - var(--packs-gap)) / 2);
+  }
+}
+
+@media (min-width: 992px) {
   .packs-carousel-slide {
     width: calc((var(--packs-carousel-iw, 100%) - 2 * var(--packs-gap)) / 3);
   }
 }
 
-.packs-carousel-slide > * {
-  flex: 1 1 auto;
-  width: 100%;
-  min-height: 0;
-  align-self: stretch;
+@media (max-width: 991.98px) {
+  .packs-carousel-outer {
+    align-items: flex-start;
+  }
+
+  .packs-carousel-outer .packs-carousel-arrow {
+    margin-top: 0.4rem;
+  }
+
+  .packs-carousel-inner {
+    align-items: flex-start;
+    min-height: auto;
+  }
+
+  .packs-carousel-slide {
+    min-height: auto;
+    align-self: flex-start;
+  }
+
+  .packs-carousel-slide > * {
+    flex: 0 0 auto;
+    min-height: auto;
+    height: auto;
+    align-self: flex-start;
+  }
 }
+
+@media (max-width: 575.98px) {
+  .packs-carousel-outer {
+    gap: 0.35rem !important;
+    padding-inline: 0.35rem !important;
+  }
+
+  .packs-carousel-outer .packs-carousel-arrow {
+    margin-top: 0.35rem;
+  }
+
+  .packs-carousel-arrow {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+
+  .packs-carousel-arrow svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .packs-header h3,
+  .home-section h3 {
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  .packs-scroll-to-flores {
+    text-align: center !important;
+  }
+
+  .packs-scroll-to-flores-link {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 399.98px) {
+  #sobre-mi.sobre-mi-section {
+    min-height: clamp(20rem, 48vh, 32rem);
+  }
+
+  #sobre-mi .sobre-mi-texto {
+    font-size: clamp(0.9rem, 3.8vw, 1.02rem);
+    line-height: 1.65;
+    padding-inline: 0.15rem;
+  }
+
+  #sobre-mi .sobre-mi-foto-shell {
+    --foto-tam: clamp(148px, 42vw, 184px);
+  }
+}
+
+@media (min-width: 992px) {
+  .packs-carousel-slide > * {
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 0;
+    align-self: stretch;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .packs-carousel-slide > * {
+    width: 100%;
+  }
+}
+
 </style>

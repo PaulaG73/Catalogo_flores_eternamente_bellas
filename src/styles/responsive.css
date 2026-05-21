@@ -1,0 +1,57 @@
+/*
+ * Ajustes globales de responsividad — Flores Eternamente Bellas
+ */
+
+html {
+  overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  overflow-x: clip;
+  min-width: 0;
+}
+
+#app {
+  overflow-x: clip;
+  min-width: 0;
+  width: 100%;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* Contenedores Bootstrap: padding lateral en móvil */
+@media (max-width: 575.98px) {
+  .container,
+  .container-fluid {
+    padding-left: max(0.75rem, env(safe-area-inset-left, 0px));
+    padding-right: max(0.75rem, env(safe-area-inset-right, 0px));
+  }
+}
+
+#navbar-principal {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.footer-feb {
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom, 0px));
+}
+
+/* Tooltips laterales: solo en pantallas con hover fino (evita desborde en móvil) */
+@media (max-width: 991.98px), (hover: none) {
+  .footer-home-tooltip,
+  .footer-wa-tooltip,
+  .card-wa-tooltip {
+    display: none !important;
+  }
+}
+
+/* Tooltips en pantallas anchas con ratón */
+@media (min-width: 992px) and (hover: hover) {
+  .card-wa-wrap {
+    overflow: visible;
+  }
+}
