@@ -19,7 +19,7 @@
   },
   {
     "id": "4",
-    "texto": "Simboliza principalmente la elegancia, la fuerza interior, el compromiso y la resiliencia.Sin embargo, su significado varía profundamente según su color.",
+    "texto": "Simboliza principalmente la elegancia, la fuerza interior, el compromiso y la resiliencia. Sin embargo, su significado varía según su color.",
     "significadoColores": [
       { "color": "Rojas", "significado": "Simbolizan amor apasionado, fuerza y poder." },
       { "color": "Rosadas", "significado": "Simbolizan gracia, cariño, bondad y ternura, son el equivalente a un abrazo cálido." },
@@ -33,13 +33,13 @@
   },
   {
     "id": "5",
-    "texto": "Es una flor nativa de Suiza.Simboliza pureza, valentía y amor eterno.",
+    "texto": "Es una flor nativa de Suiza.\nSimboliza pureza, valentía y amor eterno.",
     "image": "/img/edelweiss.jpg",
     "price": "$7.000"
   },
   {
     "id": "6",
-    "texto": "Simboliza principalmente la alegría, la pureza, la inocencia y la energía positiva. Sin embargo, su significado varía profundamente según su color.",
+    "texto": "Simboliza principalmente la alegría, la pureza, la inocencia y la energía positiva. Sin embargo, su significado varía según su color.",
     "significadoColores": [
       { "color": "Rojas", "significado": "Simbolizan pasión, amor profundo y entrega." },
       { "color": "Rosadas", "significado": "Simbolizan admiración, respeto y profundo agradecimiento." },
@@ -60,38 +60,37 @@
   },
   {
     "id": "8",
-    "texto": "Simboliza la belleza delicada, la feminidad, el amor intenso y el disfrutar del momento presente..",
+    "texto": "Simboliza la belleza delicada, la feminidad, el amor intenso y el disfrutar del momento presente.",
     "image": "/img/hibisco.jpg",
     "price": "$7.000"
   },
   {
     "id": "9",
-    "texto": "Simboliza el amor eterno, la fidelidad y la alegría..",
+    "texto": "Simboliza el amor eterno, la fidelidad y la alegría.",
     "image": "/img/jacinto.jpg",
     "price": "$7.000"
   },
   {
     "id": "10",
-    "texto": "Destaca como un poderoso amuleto protector, actúa como escudo contra la negatividad y atracción de abundancia..",
+    "texto": "Destaca como un poderoso amuleto protector, actúa como escudo contra la negatividad y atracción de abundancia.",
     "image": "/img/lengua_de_suegra.jpg",
     "price": "$10.000"
   },
   {
     "id": "11",
-    "texto": "Simboliza la despedida, el renacimiento y el paso hacia el más allá..",
+    "texto": "Simboliza la despedida, el renacimiento y el paso hacia el más allá.",
     "image": "/img/lirio_araña.jpg",
     "price": "$9.000"
   },
   {
     "id": "12",
-    "texto": "Simboliza la esperanza, la renovación y los nuevos comienzos..",
+    "texto": "Simboliza la esperanza, la renovación y los nuevos comienzos.",
     "image": "/img/lirio_de_lluvia.jpg",
     "price": "$8.000"
   },
   {
     "id": "13",
-    "texto": "Simboliza principalmente la pureza, la inocencia, el renacimiento y la feminidad. Sin embargo, su significado varía profundamente según el color.",
-    "botonColores": true,
+    "texto": "Simboliza principalmente la pureza, la inocencia, el renacimiento y la feminidad. Sin embargo, su significado varía según el color.",
     "significadoColores": [
       { "color": "Rojos", "significado": "amor apasionado, romance intenso y seducción." },
       { "color": "Rosados", "significado": "Simbolizan admiración, compasión, ternura y gratitud." },
@@ -106,20 +105,19 @@
   },
   {
     "id": "14",
-    "texto": "Simboliza la buena fortuna, la felicidad y la longevidad..",
+    "texto": "Simboliza la buena fortuna, la felicidad y la longevidad.",
     "image": "/img/mano_de_buda.jpg",
     "price": "$8.000"
   },
   {
     "id": "15",
-    "texto": "Simboliza la inocencia, la pureza, la alegría y los nuevos comienzos..",
+    "texto": "Simboliza la inocencia, la pureza, la alegría y los nuevos comienzos.",
     "image": "/img/margarita_XL.jpg",
     "price": "$8.000"
   },
   {
     "id": "16",
-    "texto": "Simboliza principalmente la belleza, el amor, la feminidad y la elegancia. Sin embargo, su significado varía profundamente según su color.",
-    "botonColores": true,
+    "texto": "Simboliza principalmente la belleza, el amor, la feminidad y la elegancia. Sin embargo, su significado varía según su color.",
     "significadoColores": [
       { "color": "Rojas", "significado": "Simbolizan pasión, deseo intenso y amor profundo." },
       { "color": "Rosadas", "significado": "Simbolizan amor sincero, la feminidad, ternura y alegría." },
@@ -140,7 +138,7 @@
   },
   {
     "id": "18",
-    "texto": "Es el símbolo universal del amor, la pasión y la belleza. Sin embargo, su significado varía profundamente según su color.",
+    "texto": "Es el símbolo universal del amor, la pasión y la belleza. Sin embargo, su significado varía según su color.",
     "significadoColores": [
       { "color": "Rojas", "significado": "Simbolizan amor profundo, pasión y romanticismo." },
       { "color": "Rosadas", "significado": "Simbolizan gratitud, admiración, cariño y dulzura." },
@@ -155,7 +153,7 @@
   },
   {
     "id": "19",
-    "texto": "Es el símbolo universal del amor, la pasión y la belleza. Sin embargo, su significado varía profundamente según su color.",
+    "texto": "Es el símbolo universal del amor, la pasión y la belleza. Sin embargo, su significado varía según su color.",
     "significadoColores": [
       { "color": "Rojas", "significado": "Simbolizan amor profundo, pasión y romanticismo." },
       { "color": "Rosadas", "significado": "Simbolizan gratitud, admiración, cariño y dulzura." },
@@ -170,7 +168,7 @@
   },
   {
     "id": "20",
-    "texto": "Simboliza principalmente el amor perfecto, profundo y sincero. Sin embargo, su significado varía profundamente según su color.",
+    "texto": "Simboliza principalmente el amor perfecto, profundo y sincero. Sin embargo, su significado varía según su color.",
     "significadoColores": [
       { "color": "Rojos", "significado": "Simbolizan amor profundo, pasión y romance incondicional." },
       { "color": "Rosados", "significado": "Simbolizan afecto, ternura y buenos deseos." },
@@ -185,7 +183,7 @@
   },
   {
     "id": "21",
-    "texto": "Simboliza la esperanza, la renovación y los nuevos comienzos..",
+    "texto": "Simboliza la esperanza, la renovación y los nuevos comienzos.",
     "image": "/img/lirio_de_lluvia_maceta.jpg",
     "price": "$12.000"
   }

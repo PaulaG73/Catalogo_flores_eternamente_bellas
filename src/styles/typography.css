@@ -45,6 +45,7 @@ body,
 
 .card-wa-tooltip,
 .footer-wa-tooltip,
-.footer-home-tooltip {
+.footer-home-tooltip,
+.card-colores-tooltip {
   font-weight: 700;
 }

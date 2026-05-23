@@ -171,12 +171,13 @@
 }
 
 .footer-wa-tooltip,
-.card-wa-tooltip {
+.card-wa-tooltip,
+.card-colores-tooltip {
   position: absolute;
   left: calc(100% + 10px);
   top: 50%;
   translate: -6px -50%;
-  padding: 0.4rem 0.75rem;
+  padding: 0.45rem 0.85rem;
   background: #fff;
   color: var(--feb-profundo, #3a0f18);
   font-family: var(--feb-font-marca);
@@ -185,7 +186,7 @@
   line-height: 1.25;
   text-align: center;
   white-space: nowrap;
-  border-radius: 0.4rem;
+  border-radius: 0.75rem;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22);
   pointer-events: none;
   opacity: 0;
@@ -198,7 +199,8 @@
 }
 
 .footer-wa-tooltip::after,
-.card-wa-tooltip::after {
+.card-wa-tooltip::after,
+.card-colores-tooltip::after {
   content: '';
   position: absolute;
   top: 50%;
@@ -215,7 +217,10 @@
 .footer-wa-wrap:hover .footer-wa-tooltip,
 .footer-wa-wrap:focus-within .footer-wa-tooltip,
 .card-wa-wrap:hover .card-wa-tooltip,
-.card-wa-wrap:focus-within .card-wa-tooltip {
+.card-wa-wrap:focus-within .card-wa-tooltip,
+.card-colores-wrap:hover .card-colores-tooltip,
+.card-colores-wrap:focus-within .card-colores-tooltip,
+.card-colores-wrap--show .card-colores-tooltip {
   opacity: 1;
   visibility: visible;
   translate: 0 -50%;
@@ -223,7 +228,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .footer-wa-tooltip,
-  .card-wa-tooltip {
+  .card-wa-tooltip,
+  .card-colores-tooltip {
     transition: none;
     translate: 0 -50%;
   }

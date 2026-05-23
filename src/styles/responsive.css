@@ -40,7 +40,7 @@ img {
   padding-bottom: max(0.5rem, env(safe-area-inset-bottom, 0px));
 }
 
-/* Tooltips laterales: solo en pantallas con hover fino (evita desborde en móvil) */
+/* Tooltips laterales del footer y WhatsApp en tarjetas: solo en pantallas con hover fino */
 @media (max-width: 991.98px), (hover: none) {
   .footer-home-tooltip,
   .footer-wa-tooltip,
@@ -49,9 +49,19 @@ img {
   }
 }
 
+/* Tooltip del botón colores: visible también en móvil/tablet al tocar (focus / click) */
+@media (max-width: 991.98px), (hover: none) {
+  .card-colores-tooltip {
+    display: block !important;
+    white-space: normal;
+    max-width: min(14rem, 72vw);
+  }
+}
+
 /* Tooltips en pantallas anchas con ratón */
 @media (min-width: 992px) and (hover: hover) {
-  .card-wa-wrap {
+  .card-wa-wrap,
+  .card-colores-wrap {
     overflow: visible;
   }
 }

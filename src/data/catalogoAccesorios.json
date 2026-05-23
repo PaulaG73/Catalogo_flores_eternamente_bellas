@@ -9,7 +9,7 @@
   {
     "id": "2",
     "nombre": "Cintillos",
-    "texto": "Cintillos para amarrar y dar el toque final a ramos y bouquets. Consulta colores y anchos disponibles.",
+    "texto": "Cintillos florales hechos a mano para complementar tus outfits con un toque delicado y romántico.",
     "image": "/img/cintillos.jpg",
     "price": "$6.000"
   },
@@ -23,13 +23,13 @@
   {
     "id": "4",
     "nombre": "Pinches",
-    "texto": "Pinches florales para fijar flores y follaje en arreglos. Prácticos y discretos para un acabado profesional.",
+    "texto": "Pinches florales delicados y hechos a mano para darle un detalle especial a tu peinado.",
     "image": "/img/pinches.jpg",
     "price": "",
     "precios": [
       { "etiqueta": "1 flor", "valor": "$2.000" },
       { "etiqueta": "2 flores", "valor": "$3.000" },
-      { "etiqueta": "3 flores", "valor": "$4.500" }
+      { "etiqueta": "3 flores", "valor": "$4.000" }
     ],
     "whatsappConsulta": true
   }

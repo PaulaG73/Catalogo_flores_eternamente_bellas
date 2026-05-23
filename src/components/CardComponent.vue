@@ -11,6 +11,7 @@
           :src="image"
           class="card-img-top"
           :class="{ 'card-img-top--agotado': agotado }"
+          :style="{ objectPosition: imageObjectPositionTrim }"
           :alt="imageAlt"
           loading="lazy"
         >
@@ -36,28 +37,26 @@
         </div>
         <div class="card-meta flex-grow-1 text-start min-w-0">
           <div v-if="descripcionTrim" class="card-meta-row">
-            <p v-if="!tieneLinkColor" class="card-descripcion">{{ descripcionTrim }}</p>
-            <p v-else class="card-descripcion">
-              <template v-for="(parte, parteIdx) in descripcionPartes" :key="`desc-${parteIdx}`">
-                <span v-if="parte.tipo === 'texto'">{{ parte.valor }}</span>
-                <button
-                  v-else
-                  type="button"
-                  class="card-color-link"
-                  @click="abrirPopupColores"
-                >
-                  color
-                </button>
-              </template>
-            </p>
-            <button
-              v-if="mostrarBotonColoresOval"
-              type="button"
-              class="card-colores-oval-btn"
-              @click="abrirPopupColores"
+            <p class="card-descripcion">{{ descripcionTrim }}</p>
+            <span
+              v-if="mostrarBotonColores"
+              class="card-colores-wrap"
+              :class="{ 'card-colores-wrap--show': coloresTooltipVisible }"
             >
-              colores
-            </button>
+              <button
+                type="button"
+                class="card-colores-oval-btn"
+                aria-label="Ver opciones de colores aquí"
+                @click="onColoresBtnClick"
+                @focus="coloresTooltipVisible = true"
+                @blur="onColoresBtnBlur"
+              >
+                colores
+              </button>
+              <span class="card-colores-tooltip" role="tooltip" aria-hidden="true">
+                Ver opciones de colores aquí
+              </span>
+            </span>
           </div>
         </div>
         <div class="card-divider-wrap">
@@ -194,13 +193,14 @@
       type: Array,
       default: () => [],
     },
-    botonColores: {
-      type: Boolean,
-      default: false,
-    },
     image: {
       type: String,
       required: true,
+    },
+    /** Anclaje CSS opcional, p. ej. "center top" — ver `object-position` */
+    imageObjectPosition: {
+      type: String,
+      default: 'center center',
     },
     price: {
       type: String,
@@ -246,7 +246,10 @@
     typeof props.descripcion === 'string' ? props.descripcion.trim() : '',
   )
 
-  const COLOR_LINK_RE = /\bcolor\b/i
+  const imageObjectPositionTrim = computed(() => {
+    const pos = typeof props.imageObjectPosition === 'string' ? props.imageObjectPosition.trim() : ''
+    return pos || 'center center'
+  })
 
   const significadoColoresLista = computed(() => {
     if (!Array.isArray(props.significadoColores)) return []
@@ -261,43 +264,31 @@
       .filter(Boolean)
   })
 
-  const tieneLinkColor = computed(
-    () =>
-      significadoColoresLista.value.length > 0 &&
-      COLOR_LINK_RE.test(descripcionTrim.value),
+  const mostrarBotonColores = computed(
+    () => significadoColoresLista.value.length > 0,
   )
-
-  const mostrarBotonColoresOval = computed(
-    () => props.botonColores && significadoColoresLista.value.length > 0,
-  )
-
-  const descripcionPartes = computed(() => {
-    if (!tieneLinkColor.value) return []
-    const texto = descripcionTrim.value
-    const re = /\bcolor\b/i
-    const partes = []
-    let resto = texto
-    let match = re.exec(resto)
-    while (match) {
-      if (match.index > 0) {
-        partes.push({ tipo: 'texto', valor: resto.slice(0, match.index) })
-      }
-      partes.push({ tipo: 'link', valor: match[0] })
-      resto = resto.slice(match.index + match[0].length)
-      match = re.exec(resto)
-    }
-    if (resto) partes.push({ tipo: 'texto', valor: resto })
-    return partes
-  })
 
   const popupColoresAbierto = ref(false)
+  const coloresTooltipVisible = ref(false)
 
   function abrirPopupColores() {
     popupColoresAbierto.value = true
   }
 
+  function onColoresBtnClick() {
+    coloresTooltipVisible.value = true
+    abrirPopupColores()
+  }
+
+  function onColoresBtnBlur() {
+    if (!popupColoresAbierto.value) {
+      coloresTooltipVisible.value = false
+    }
+  }
+
   function cerrarPopupColores() {
     popupColoresAbierto.value = false
+    coloresTooltipVisible.value = false
   }
 
   function onPopupColoresKeydown(e) {
@@ -325,11 +316,35 @@
     typeof props.title === 'string' ? props.title.trim() : '',
   )
 
-  const esFlor = computed(() => descripcionTrim.value.length > 0)
-
   const nombreCatalogo = computed(() =>
     catalogoNombre({ nombre: props.title, image: props.image }),
   )
+
+  const whatsappUrl = computed(() => {
+    if (props.whatsappConsulta) {
+      return getWhatsAppConsultaUrl({
+        nombre: nombreCatalogo.value,
+        catalogoTipo: props.catalogoTipo,
+        itemId: props.itemId,
+      })
+    }
+    if (props.catalogoTipo === 'flor') {
+      return getWhatsAppFlowerUrl({
+        nombre: nombreCatalogo.value,
+        precio: priceTrim.value,
+        catalogoTipo: props.catalogoTipo,
+        itemId: props.itemId,
+      })
+    }
+    return getWhatsAppPackUrl({
+      title: props.title,
+      catalogoTipo: props.catalogoTipo,
+      itemId: props.itemId,
+      price: priceTrim.value,
+      precioEspecial: precioEspecialTrim.value,
+      image: props.image,
+    })
+  })
 
   const imageAlt = computed(() => nombreCatalogo.value || 'Producto del catálogo')
 
@@ -351,28 +366,6 @@
 
   const tienePrecioEspecial = computed(() => precioEspecialTrim.value.length > 0)
 
-  const whatsappUrl = computed(() => {
-    if (props.whatsappConsulta) {
-      return getWhatsAppConsultaUrl({
-        nombre: nombreCatalogo.value,
-        src: props.image,
-      })
-    }
-    if (esFlor.value) {
-      return getWhatsAppFlowerUrl({
-        nombre: nombreCatalogo.value,
-        precio: priceTrim.value,
-        src: props.image,
-      })
-    }
-    return getWhatsAppPackUrl({
-      title: props.title,
-      catalogoTipo: props.catalogoTipo,
-      price: priceTrim.value,
-      precioEspecial: precioEspecialTrim.value,
-      image: props.image,
-    })
-  })
   const whatsappReady = computed(() => isWhatsAppConfigured())
 
   const whatsappEnabled = computed(() => whatsappReady.value && !props.agotado)
@@ -587,21 +580,6 @@
       height: auto !important;
     }
 
-    .card-img-wrap {
-      aspect-ratio: 4 / 3;
-      height: auto;
-      max-height: clamp(10.5rem, 38vw, 13.5rem);
-    }
-
-    .card-img-top {
-      object-fit: contain;
-      object-position: center center;
-    }
-
-    .card-pack:hover .card-img-top {
-      transform: none;
-    }
-
     .card-pack-body {
       padding: 0.55rem 0.58rem 0.6rem;
       flex: 0 0 auto;
@@ -638,21 +616,6 @@
   @media (min-width: 576px) and (max-width: 991.98px) {
     .card-pack {
       height: auto !important;
-    }
-
-    .card-img-wrap {
-      aspect-ratio: 4 / 3;
-      height: auto;
-      max-height: clamp(12rem, 24vw, 16.5rem);
-    }
-
-    .card-img-top {
-      object-fit: contain;
-      object-position: center center;
-    }
-
-    .card-pack:hover .card-img-top {
-      transform: none;
     }
 
     .card-pack-body {
@@ -737,6 +700,7 @@
     padding-left: 0.38rem;
     border-left: 2px solid rgba(var(--feb-acento-rgb), 0.42);
     min-width: 0;
+    overflow: visible;
   }
 
   .card-descripcion {
@@ -747,29 +711,24 @@
     letter-spacing: 0.015em;
     color: #231e22;
     text-align: left;
+    white-space: pre-line;
   }
 
-  .card-color-link {
-    display: inline;
-    padding: 0;
-    border: none;
-    background: none;
-    font: inherit;
-    font-weight: 800;
-    color: var(--feb-acento);
-    text-decoration: underline;
-    text-underline-offset: 0.12em;
-    cursor: pointer;
+  .card-colores-wrap {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    z-index: 1;
   }
 
-  .card-color-link:hover {
-    color: var(--feb-acento-hover);
+  .card-colores-wrap:hover,
+  .card-colores-wrap:focus-within {
+    z-index: 6;
   }
 
-  .card-color-link:focus-visible {
-    outline: 2px solid rgba(var(--feb-acento-rgb), 0.65);
-    outline-offset: 2px;
-    border-radius: 0.15rem;
+  .card-colores-wrap .card-colores-tooltip {
+    white-space: normal;
+    max-width: min(14rem, 72vw);
   }
 
   .card-colores-oval-btn {

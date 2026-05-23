@@ -55,16 +55,27 @@ function withCacheBuster(url) {
   return u.includes('?') ? `${u}&${WHATSAPP_PREVIEW_CACHE_BUSTER}` : `${u}?${WHATSAPP_PREVIEW_CACHE_BUSTER}`
 }
 
-function resolvePackImageUrlForWhatsApp(assetPath) {
-  if (!assetPath || typeof assetPath !== 'string') return ''
-  const trimmed = assetPath.trim()
-  if (!trimmed) return ''
-  if (/^https?:\/\//i.test(trimmed)) return normalizeHttpsRoot(trimmed)
+/** Slug de página share: flor-3, ramo-1, accesorio-4 */
+export function sharePageSlug(catalogoTipo, itemId) {
+  const tipo = String(catalogoTipo || '').trim().toLowerCase()
+  const id = String(itemId || '').trim()
+  if (!id || !['flor', 'ramo', 'accesorio'].includes(tipo)) return ''
+  return `${tipo}-${id}`
+}
 
-  const path = trimmed.startsWith('/') ? trimmed : `/${trimmed}`
+/** URL pública de share/*.html para vista previa OG en WhatsApp */
+function resolveSharePageUrlForWhatsApp({ catalogoTipo, itemId }) {
+  const slug = sharePageSlug(catalogoTipo, itemId)
+  if (!slug) return ''
   const base = getShareBaseOrigin()
-  if (!base) return ''
-  return `${base}${path}`
+  if (!base || !/^https:\/\//i.test(base)) return ''
+  return `${base}/share/${slug}.html`
+}
+
+function prependWhatsAppPreviewUrl(parts, previewUrl) {
+  if (!previewUrl || !/^https:\/\//i.test(previewUrl)) return
+  parts.unshift(withCacheBuster(previewUrl))
+  parts.push('')
 }
 
 function priceForWhatsAppMessage(price) {
@@ -131,18 +142,18 @@ export function getWhatsAppFlowerUrl(flower) {
 
   const nombre = typeof flower?.nombre === 'string' ? flower.nombre.trim() : ''
   const precio = typeof flower?.precio === 'string' ? flower.precio.trim() : ''
-  const imageUrl = resolvePackImageUrlForWhatsApp(flower?.src || '')
   const precioTxt = priceForWhatsAppMessage(precio)
+  const previewUrl = resolveSharePageUrlForWhatsApp({
+    catalogoTipo: flower?.catalogoTipo || 'flor',
+    itemId: flower?.itemId,
+  })
 
   const parts = ['Quiero esta flor']
   if (nombre) parts.push(nombre)
   if (precioTxt) parts.push(`Precio (CLP): ${precioTxt}`)
   parts.push('')
 
-  if (imageUrl && /^https:\/\//i.test(imageUrl)) {
-    parts.unshift(withCacheBuster(imageUrl))
-    parts.push('')
-  }
+  prependWhatsAppPreviewUrl(parts, previewUrl)
 
   const text = parts.join('\n').trimEnd()
   return `https://api.whatsapp.com/send?phone=${digits}&text=${encodeURIComponent(text)}`
@@ -160,17 +171,17 @@ export function getWhatsAppPackUrl(pack) {
   const price = typeof pack?.price === 'string' ? pack.price.trim() : ''
   const precioEspecial =
     typeof pack?.precioEspecial === 'string' ? pack.precioEspecial.trim() : ''
-  const imageUrl = resolvePackImageUrlForWhatsApp(pack?.image || '')
+  const previewUrl = resolveSharePageUrlForWhatsApp({
+    catalogoTipo: tipo,
+    itemId: pack?.itemId,
+  })
 
   const intro = WHATSAPP_INTRO_BY_TIPO[tipo] || 'Quiero consultar por'
   const parts = [intro]
   if (title) parts.push(title)
   parts.push('')
 
-  if (imageUrl && /^https:\/\//i.test(imageUrl)) {
-    parts.unshift(withCacheBuster(imageUrl))
-    parts.push('')
-  }
+  prependWhatsAppPreviewUrl(parts, previewUrl)
 
   const espTxt = priceForWhatsAppMessage(precioEspecial)
   const refTxt = priceForWhatsAppMessage(price)
@@ -190,16 +201,16 @@ export function getWhatsAppConsultaUrl(item) {
   if (!digits) return '#'
 
   const nombre = typeof item?.nombre === 'string' ? item.nombre.trim() : ''
-  const imageUrl = resolvePackImageUrlForWhatsApp(item?.src || '')
+  const previewUrl = resolveSharePageUrlForWhatsApp({
+    catalogoTipo: item?.catalogoTipo || 'accesorio',
+    itemId: item?.itemId,
+  })
 
   const parts = []
   if (nombre) parts.push(nombre)
   parts.push('Consulta')
 
-  if (imageUrl && /^https:\/\//i.test(imageUrl)) {
-    parts.unshift(withCacheBuster(imageUrl))
-    parts.push('')
-  }
+  prependWhatsAppPreviewUrl(parts, previewUrl)
 
   const text = parts.join('\n').trimEnd()
   return `https://api.whatsapp.com/send?phone=${digits}&text=${encodeURIComponent(text)}`

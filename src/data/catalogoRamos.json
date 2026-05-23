@@ -1,37 +1,37 @@
 [
   {
+    "id": "3",
+    "nombre": "Ramo de 10 Margaritas",
+    "texto": "Las margaritas simbolizan alegría, nuevos comienzos y un amor sincero y duradero. Un ramo delicado que transmite energía positiva y ternura. ",
+    "image": "/img/ramo_de_margaritas.jpg",
+    "price": "$20.000"
+  },
+  {
+    "id": "5",
+    "nombre": "Ramo Bon o Bon",
+    "texto": "Un detalle dulce y alegre que combina flores y chocolates para transmitir felicidad, cariño y energía positiva.",
+    "image": "/img/ramo_bonobon.jpg",
+    "price": "$25.000"
+  },
+  {
     "id": "1",
     "nombre": "Ramo de 6 Tulipanes",
-    "texto": "Ramo elegante con seis tulipanes frescos. Ideal para regalar alegría y renovación en cualquier ocasión especial.",
+    "texto": "Los tonos rosados y morados simbolizan ternura, cariño, lealtad y apoyo incondicional. Un ramo delicado lleno de emociones bonitas.",
     "image": "/img/ramo_de_tulipanes.jpg",
     "price": "$30.000"
   },
   {
     "id": "2",
     "nombre": "Ramo de 8 Lirios",
-    "texto": "Ocho lirios que transmiten pureza, nobleza y admiración. Perfecto para expresar sentimientos profundos con presencia y delicadeza.",
+    "texto": "Cada color expresa una emoción diferente: amor, felicidad, tranquilidad, lealtad y admiración. Un ramo vibrante y lleno de significado.",
     "image": "/img/ramo_de_lirios.jpg",
     "price": "$40.000"
   },
   {
-    "id": "3",
-    "nombre": "Ramo de 10 Margaritas",
-    "texto": "Ramo fresco y luminoso de margaritas. Simboliza inocencia, alegría sencilla y cariño sincero. ",
-    "image": "/img/ramo_de_margaritas.jpg",
-    "price": "$20.000"
-  },
-  {
     "id": "4",
     "nombre": "Ramo Lirios, Tulipanes y Dalia",
-    "texto": "Combinación armónica de lirios, tulipanes y dalia. Un arreglo versátil que mezcla elegancia, color y calidez.",
+    "texto": "Una combinación llena de cariño, admiración y dulzura. Sus tonos rosados representan ternura, afecto y buenos deseos.",
     "image": "/img/ramo_mixto.jpg",
     "price": "$45.000"
-  },
-  {
-    "id": "5",
-    "nombre": "Ramo Bon o Bon",
-    "texto": "Ramo dulce y original con flores y detalle tipo bonobón. Pensado para sorprender con un regalo tierno y memorable.",
-    "image": "/img/ramo_bonobon.jpg",
-    "price": "$25.000"
   }
 ]

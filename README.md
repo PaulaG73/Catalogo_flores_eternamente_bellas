@@ -107,6 +107,7 @@ Solo dígitos: código de país + número (ej. Chile: `569…`).
 | `npm run serve` | Desarrollo con recarga en caliente |
 | `npm run build` | Build de producción en `dist/` |
 | `npm run lint` | ESLint (Vue 3) |
+| `npm run generate-share` | Genera `public/share/*.html` (Open Graph para WhatsApp) |
 | `npm run optimize-pack-og` | Optimiza imágenes para vistas previa al compartir |
 
 ---
@@ -118,6 +119,7 @@ Solo dígitos: código de país + número (ej. Chile: `569…`).
 │   ├── img/                 # Fotografías de productos y logo
 │   ├── index.html           # Meta OG y carga de fuentes
 │   ├── _redirects           # SPA (Netlify y similares)
+│   ├── share/               # Páginas OG por producto (npm run generate-share)
 │   └── og-sobre-mi.html     # Vista previa sección Sobre mí
 ├── src/
 │   ├── components/
@@ -206,7 +208,7 @@ La carpeta `dist/` es estática. El archivo `public/_redirects` redirige rutas a
 
 - **Colores** — Variables en `src/styles/theme.css` (`--feb-acento`, `--feb-profundo`, fondos de sección, etc.).
 - **Tipografía** — `--feb-font-marca` en `src/styles/typography.css`.
-- **Logo** — `public/img/logo_sin_fondo.png` (Sobre mí y Open Graph).
+- **Logo** — `public/img/Logo.JPG` (footer y vista previa al compartir el catálogo); `logo_sin_fondo.png` en la sección Sobre mí.
 
 ---
 
