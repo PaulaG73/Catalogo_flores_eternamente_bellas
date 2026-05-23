@@ -171,8 +171,7 @@
 }
 
 .footer-wa-tooltip,
-.card-wa-tooltip,
-.card-colores-tooltip {
+.card-wa-tooltip {
   position: absolute;
   left: calc(100% + 10px);
   top: 50%;
@@ -199,8 +198,7 @@
 }
 
 .footer-wa-tooltip::after,
-.card-wa-tooltip::after,
-.card-colores-tooltip::after {
+.card-wa-tooltip::after {
   content: '';
   position: absolute;
   top: 50%;
@@ -217,10 +215,7 @@
 .footer-wa-wrap:hover .footer-wa-tooltip,
 .footer-wa-wrap:focus-within .footer-wa-tooltip,
 .card-wa-wrap:hover .card-wa-tooltip,
-.card-wa-wrap:focus-within .card-wa-tooltip,
-.card-colores-wrap:hover .card-colores-tooltip,
-.card-colores-wrap:focus-within .card-colores-tooltip,
-.card-colores-wrap--show .card-colores-tooltip {
+.card-wa-wrap:focus-within .card-wa-tooltip {
   opacity: 1;
   visibility: visible;
   translate: 0 -50%;
@@ -228,8 +223,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .footer-wa-tooltip,
-  .card-wa-tooltip,
-  .card-colores-tooltip {
+  .card-wa-tooltip {
     transition: none;
     translate: 0 -50%;
   }

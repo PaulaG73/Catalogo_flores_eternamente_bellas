@@ -37,26 +37,15 @@
         </div>
         <div class="card-meta flex-grow-1 text-start min-w-0">
           <div v-if="descripcionTrim" class="card-meta-row">
-            <p class="card-descripcion">{{ descripcionTrim }}</p>
-            <span
+            <p class="card-descripcion" tabindex="0">{{ descripcionTrim }}</p>
+            <button
               v-if="mostrarBotonColores"
-              class="card-colores-wrap"
-              :class="{ 'card-colores-wrap--show': coloresTooltipVisible }"
+              type="button"
+              class="card-colores-oval-btn"
+              @click="abrirPopupColores"
             >
-              <button
-                type="button"
-                class="card-colores-oval-btn"
-                aria-label="Ver opciones de colores aquí"
-                @click="onColoresBtnClick"
-                @focus="coloresTooltipVisible = true"
-                @blur="onColoresBtnBlur"
-              >
-                colores
-              </button>
-              <span class="card-colores-tooltip" role="tooltip" aria-hidden="true">
-                Ver opciones de colores aquí
-              </span>
-            </span>
+              ver colores aquí
+            </button>
           </div>
         </div>
         <div class="card-divider-wrap">
@@ -269,26 +258,13 @@
   )
 
   const popupColoresAbierto = ref(false)
-  const coloresTooltipVisible = ref(false)
 
   function abrirPopupColores() {
     popupColoresAbierto.value = true
   }
 
-  function onColoresBtnClick() {
-    coloresTooltipVisible.value = true
-    abrirPopupColores()
-  }
-
-  function onColoresBtnBlur() {
-    if (!popupColoresAbierto.value) {
-      coloresTooltipVisible.value = false
-    }
-  }
-
   function cerrarPopupColores() {
     popupColoresAbierto.value = false
-    coloresTooltipVisible.value = false
   }
 
   function onPopupColoresKeydown(e) {
@@ -605,6 +581,54 @@
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 4;
       overflow: hidden;
+      transform-origin: top left;
+      transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        background-color 0.22s ease;
+    }
+
+    .card-meta-row:has(.card-descripcion:hover),
+    .card-meta-row:has(.card-descripcion:active),
+    .card-meta-row:has(.card-descripcion:focus) {
+      position: relative;
+      z-index: 14;
+    }
+
+    .card-descripcion:hover,
+    .card-descripcion:active,
+    .card-descripcion:focus {
+      transform: scale(1.16);
+      display: block;
+      -webkit-line-clamp: unset;
+      overflow: visible;
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 8px 22px rgba(42, 32, 38, 0.22);
+      padding: 0.38rem 0.48rem;
+      margin: -0.12rem -0.2rem 0;
+      border-radius: 0.45rem;
+      font-size: clamp(0.78rem, 3.65vw, 0.88rem);
+      line-height: 1.42;
+      outline: none;
+    }
+
+    .card-descripcion:focus-visible {
+      box-shadow:
+        0 8px 22px rgba(42, 32, 38, 0.22),
+        0 0 0 2px rgba(var(--feb-acento-rgb), 0.45);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card-descripcion {
+        transition: none;
+      }
+
+      .card-descripcion:hover,
+      .card-descripcion:active,
+      .card-descripcion:focus {
+        transform: none;
+        font-size: clamp(0.74rem, 3.4vw, 0.84rem);
+      }
     }
 
     .card-wa-btn {
@@ -714,27 +738,10 @@
     white-space: pre-line;
   }
 
-  .card-colores-wrap {
-    position: relative;
-    display: inline-block;
-    vertical-align: middle;
-    z-index: 1;
-  }
-
-  .card-colores-wrap:hover,
-  .card-colores-wrap:focus-within {
-    z-index: 6;
-  }
-
-  .card-colores-wrap .card-colores-tooltip {
-    white-space: normal;
-    max-width: min(14rem, 72vw);
-  }
-
   .card-colores-oval-btn {
     display: inline-block;
     margin: 0;
-    padding: 0.22rem 0.85rem;
+    padding: 0.22rem 0.72rem;
     border: 1.5px solid var(--feb-acento);
     border-radius: 999px;
     background: rgba(var(--feb-acento-rgb), 0.08);
